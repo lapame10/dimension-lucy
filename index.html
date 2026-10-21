@@ -3,245 +3,253 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Dimension Lucy — Experiencias aéreas · Storytelling · Presencia</title>
-<meta name="description" content="Luciana Burkle — atleta aérea y creadora de contenido. Coaching de paracaidismo y parapente, Trapeze Flow y producción audiovisual. Alpes franceses y México.">
+<title>Dimensión Lucy — Aerial experiences, creative storytelling &amp; presence</title>
+<meta name="description" content="Luciana Burkle — Dimensión Lucy. Coaching de paracaidismo y parapente, Trapeze Flow Experience y producción audiovisual. Alpes franceses y México.">
 <link rel="icon" href="assets/lu.jpg">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --pad:clamp(20px,5vw,64px); --max:1240px;
-  --disp:'Didot','Playfair Display',Georgia,'Times New Roman',serif;
-  --sans:-apple-system,'Inter',system-ui,'Segoe UI',sans-serif;
+  --pad:clamp(20px,5vw,76px); --max:1220px;
+  /* Nord = títulos (fallback geométrico del sistema) · Roboto = cuerpo */
+  --disp:'Futura','Avenir Next','Jost','Century Gothic',-apple-system,sans-serif;
+  --sans:'Roboto',-apple-system,'Segoe UI',system-ui,sans-serif;
   --mono:'SF Mono',ui-monospace,Menlo,monospace;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.62;
-  -webkit-font-smoothing:antialiased;transition:background .35s,color .35s}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.68;
+  -webkit-font-smoothing:antialiased;transition:background .35s,color .35s;letter-spacing:.005em}
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
-.eyebrow{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);font-weight:700}
-h1,h2,h3{font-family:var(--disp);font-weight:400;line-height:.98;letter-spacing:-.02em}
-h1{font-size:clamp(42px,8.6vw,112px)}
-h2{font-size:clamp(29px,4.8vw,58px)}
-h3{font-size:clamp(21px,2.5vw,30px);line-height:1.12}
+.eyebrow{font-family:var(--disp);font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;
+  color:var(--ink);font-weight:500}
+h1,h2,h3{font-family:var(--disp);font-weight:400;line-height:1.02;letter-spacing:.01em;text-transform:uppercase}
+h1{font-size:clamp(30px,5.2vw,58px);letter-spacing:.14em}
+h2{font-size:clamp(22px,3.4vw,38px);letter-spacing:.1em}
+h3{font-size:clamp(16px,1.9vw,21px);letter-spacing:.09em;line-height:1.2}
 p{color:var(--mut)}
-b{color:var(--fg);font-weight:600}
-.lead{font-size:clamp(16px,1.85vw,19.5px);color:var(--fg);opacity:.92;max-width:64ch}
+b{color:var(--fg);font-weight:500}
+.lead{font-size:clamp(15px,1.7vw,18px);color:var(--fg);opacity:.92;max-width:64ch;font-weight:300}
 hr.sep{border:none;border-top:1px solid var(--line)}
 
-/* ===== TEMAS ===== */
-body.t-a{--bg:#0a0b0d;--fg:#f4f2ee;--mut:#9d9a92;--line:rgba(255,255,255,.13);
-  --accent:#d9a441;--card:#111318;--soft:rgba(255,255,255,.045);--onb:#0a0b0d}
-body.t-b{--bg:#f1eae0;--fg:#191512;--mut:#6d6154;--line:#d9cdbd;
-  --accent:#7a5340;--card:#fbf7f1;--soft:rgba(25,21,18,.035);--onb:#fff}
-body.t-c{--bg:#fbfcfd;--fg:#0a0d13;--mut:#5b616d;--line:#e3e7ec;
-  --accent:#1447ff;--card:#ffffff;--soft:rgba(10,13,19,.03);--onb:#fff}
+/* ===== TEMAS (los tres dentro del brandbook) ===== */
+body.t-b{--bg:#ebe3d8;--fg:#11120d;--mut:#7d7368;--ink:#655546;--line:#cfc4b5;--card:#f4eee5;--soft:#efe8dd;--onb:#ebe3d8}
+body.t-a{--bg:#11120d;--fg:#ebe3d8;--mut:#958b81;--ink:#cfc4b5;--line:#33322a;--card:#191a14;--soft:#171812;--onb:#11120d}
+body.t-c{--bg:#f7f3ec;--fg:#11120d;--mut:#8d8378;--ink:#655546;--line:#e2d9cc;--card:#fffdf9;--soft:#f2ece2;--onb:#fffdf9}
 
-/* ===== MAQUETA ===== */
-.mock{background:var(--accent);color:var(--onb);font-size:11px;font-weight:700;
-  letter-spacing:.05em;text-align:center;padding:7px 12px;position:relative;z-index:60}
+/* skip bar */
+.mock{background:var(--ink);color:var(--onb);font-family:var(--sans);font-size:10.5px;font-weight:400;
+  letter-spacing:.12em;text-align:center;padding:8px 12px;position:relative;z-index:60;text-transform:uppercase}
 
 /* ===== NAV ===== */
-.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
-  background:color-mix(in srgb,var(--bg) 88%,transparent);border-bottom:1px solid var(--line)}
-.navin{max-width:var(--max);margin:0 auto;padding:13px var(--pad);display:flex;
-  align-items:center;justify-content:space-between;gap:16px}
-.brand{display:flex;align-items:center;gap:10px;font-size:12.5px;letter-spacing:.26em;
-  text-transform:uppercase;font-weight:700}
-.brand img{width:30px;height:30px;border-radius:50%;object-fit:cover}
-.navlinks{display:none;gap:24px;font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--mut)}
-.navlinks a:hover{color:var(--accent)}
-@media(min-width:1000px){.navlinks{display:flex}}
-.btn{display:inline-flex;align-items:center;gap:9px;border-radius:999px;padding:12px 22px;
-  font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  border:1px solid var(--accent);background:var(--accent);color:var(--onb);cursor:pointer;
-  transition:transform .18s,opacity .18s;font-family:var(--sans);text-align:center;justify-content:center}
-.btn:hover{transform:translateY(-1px);opacity:.92}
+.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);
+  background:color-mix(in srgb,var(--bg) 90%,transparent);border-bottom:1px solid var(--line)}
+.navin{max-width:var(--max);margin:0 auto;padding:14px var(--pad);display:flex;
+  align-items:center;justify-content:space-between;gap:18px}
+.brand img{height:38px;width:auto}
+body.t-a .brand img{content:url(assets/logo-light.png)}
+.navlinks{display:none;gap:26px;font-family:var(--disp);font-size:10.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--mut)}
+.navlinks a:hover{color:var(--fg)}
+@media(min-width:1020px){.navlinks{display:flex}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:0;
+  padding:13px 26px;font-family:var(--disp);font-size:10.5px;font-weight:500;letter-spacing:.24em;
+  text-transform:uppercase;border:1px solid var(--fg);background:var(--fg);color:var(--bg);
+  cursor:pointer;transition:opacity .2s,background .2s,color .2s}
+.btn:hover{opacity:.82}
 .btn.ghost{background:transparent;color:var(--fg);border-color:var(--line)}
-.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
-.btn.sm{padding:9px 16px;font-size:10.5px}
+.btn.ghost:hover{border-color:var(--fg);opacity:1}
+.btn.sm{padding:10px 18px;font-size:9.5px}
 
-/* ===== HERO ===== */
-.hero{position:relative;min-height:min(86vh,740px);display:flex;align-items:flex-end;overflow:hidden}
-.heroimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 35%}
-.hero:after{content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.42) 0%,rgba(0,0,0,.10) 32%,rgba(0,0,0,.78) 100%)}
-.herotext{position:relative;z-index:2;padding:0 var(--pad) clamp(34px,6vh,66px);
-  max-width:var(--max);margin:0 auto;width:100%}
-.hero h1{margin:14px 0 18px;color:#fff;text-shadow:0 2px 46px rgba(0,0,0,.4)}
-.hero .lead{color:rgba(255,255,255,.9)}
-.hero .eyebrow{color:#fff;opacity:.9}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 26px}
-.chip{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
-  border:1px solid rgba(255,255,255,.42);color:#fff;border-radius:999px;padding:6px 13px;
-  backdrop-filter:blur(6px);background:rgba(0,0,0,.2)}
-.herobtns{display:flex;gap:11px;flex-wrap:wrap}
-.herobtns .btn.ghost{color:#fff;border-color:rgba(255,255,255,.55)}
+/* ===== HERO tipográfico (estilo brandbook) ===== */
+.hero{padding:clamp(54px,10vw,120px) 0 clamp(40px,7vw,80px);text-align:center;position:relative;overflow:hidden}
+.hero:before{content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle at 50% 0%,color-mix(in srgb,var(--ink) 9%,transparent),transparent 62%)}
+.heroin{position:relative;z-index:2}
+.hero .logo{height:clamp(78px,13vw,150px);width:auto;margin:0 auto 30px}
+body.t-a .hero .logo{content:url(assets/logo-light.png)}
+.hero h1{margin-bottom:22px}
+.hero .tag{font-family:var(--disp);font-size:clamp(12px,1.5vw,15px);letter-spacing:.34em;
+  text-transform:uppercase;color:var(--ink);margin-bottom:16px}
+.hero .lead{margin:0 auto;text-align:center}
+.herobtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
 
-/* ===== METRICAS ===== */
+/* cinta de fotos */
+.band{display:grid;grid-template-columns:1.35fr 1fr;gap:0;height:clamp(240px,40vw,520px)}
+@media(max-width:700px){.band{grid-template-columns:1fr;height:clamp(300px,60vw,420px)}
+  .band figure:last-child{display:none}}
+.band figure{overflow:hidden;position:relative}
+.band img{width:100%;height:100%;object-fit:cover}
+
+/* ===== MÉTRICAS ===== */
 .metrics{border-bottom:1px solid var(--line);background:var(--soft)}
-.metin{max-width:var(--max);margin:0 auto;padding:26px var(--pad);
-  display:grid;grid-template-columns:repeat(2,1fr);gap:22px 14px;text-align:center}
-@media(min-width:820px){.metin{grid-template-columns:repeat(5,1fr)}}
-.met b{display:block;font-family:var(--disp);font-size:clamp(26px,3.4vw,42px);
-  line-height:1;color:var(--fg);letter-spacing:-.02em}
-.met span{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);
-  font-weight:700;display:block;margin-top:7px}
+.metin{max-width:var(--max);margin:0 auto;padding:30px var(--pad);display:grid;
+  grid-template-columns:repeat(2,1fr);gap:24px 12px;text-align:center}
+@media(min-width:840px){.metin{grid-template-columns:repeat(5,1fr)}}
+.met b{display:block;font-family:var(--disp);font-size:clamp(22px,3vw,34px);line-height:1;
+  color:var(--fg);letter-spacing:.04em}
+.met span{font-family:var(--disp);font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--mut);display:block;margin-top:9px}
 
 /* ===== SECCIONES ===== */
-section{padding:clamp(54px,8.4vw,116px) 0}
-.shead{display:flex;flex-direction:column;gap:12px;margin-bottom:clamp(28px,4.6vw,52px)}
-.grid2{display:grid;grid-template-columns:1fr;gap:clamp(26px,4.6vw,60px);align-items:center}
+section{padding:clamp(52px,8vw,110px) 0}
+.shead{display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(26px,4.4vw,50px);max-width:74ch}
+.grid2{display:grid;grid-template-columns:1fr;gap:clamp(26px,4.4vw,58px);align-items:center}
 @media(min-width:880px){.grid2{grid-template-columns:1fr 1fr}}
-
-.sobreimg{border-radius:3px;overflow:hidden;aspect-ratio:4/5;background:var(--soft)}
+.sobreimg{aspect-ratio:4/5;overflow:hidden;background:var(--soft)}
 .sobreimg img{width:100%;height:100%;object-fit:cover}
-.sobremeta{display:flex;gap:32px;flex-wrap:wrap;margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
-.sobremeta b{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
-  color:var(--accent);margin-bottom:5px;text-transform:uppercase}
-.sobremeta span{font-size:13.5px;color:var(--fg)}
-.quote{border-left:2px solid var(--accent);padding:6px 0 6px 20px;margin-top:30px;
-  font-family:var(--disp);font-size:clamp(17px,2.2vw,23px);line-height:1.3;color:var(--fg);font-style:italic}
+.sobremeta{display:flex;gap:30px;flex-wrap:wrap;margin-top:30px;padding-top:24px;border-top:1px solid var(--line)}
+.sobremeta b{display:block;font-family:var(--disp);font-size:9px;letter-spacing:.22em;
+  color:var(--ink);margin-bottom:6px;text-transform:uppercase}
+.sobremeta span{font-size:13px;color:var(--fg)}
+.quote{margin-top:32px;font-family:var(--disp);font-size:clamp(14px,1.9vw,19px);line-height:1.5;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink);text-align:center;
+  padding:24px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 
 /* ===== SERVICIOS ===== */
-.serv{display:grid;grid-template-columns:1fr;gap:18px}
+.serv{display:grid;grid-template-columns:1fr;gap:16px}
 @media(min-width:800px){.serv{grid-template-columns:1fr 1fr}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:5px;overflow:hidden;
-  display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
-.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card{background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;
+  transition:border-color .25s}
+.card:hover{border-color:var(--ink)}
 .cardimg{aspect-ratio:16/10;overflow:hidden;background:var(--soft)}
-.cardimg img{width:100%;height:100%;object-fit:cover;transition:transform .55s}
-.card:hover .cardimg img{transform:scale(1.04)}
-.cardbody{padding:clamp(20px,2.8vw,30px);display:flex;flex-direction:column;gap:13px;flex:1}
-.cardtop{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.price{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap;text-align:right}
-.price small{display:block;font-size:10px;color:var(--mut);font-weight:500;letter-spacing:.04em;
-  margin-top:4px;font-family:var(--sans)}
-.includes{list-style:none;display:flex;flex-direction:column;gap:7px;font-size:13.5px;color:var(--mut)}
-.includes li{padding-left:16px;position:relative;line-height:1.5}
-.includes li:before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;
-  border-radius:50%;background:var(--accent);opacity:.7}
-.rates{list-style:none;font-size:13px;color:var(--mut);border-top:1px solid var(--line);margin-top:4px}
-.rates li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;
-  border-bottom:1px solid var(--line)}
-.rates li b{font-family:var(--mono);font-size:12.5px;color:var(--fg);white-space:nowrap}
-.cardfoot{margin-top:auto;padding-top:6px;display:flex;align-items:center;
+.cardimg img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.card:hover .cardimg img{transform:scale(1.035)}
+.cardbody{padding:clamp(22px,2.8vw,32px);display:flex;flex-direction:column;gap:14px;flex:1}
+.cardtop{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.price{font-family:var(--disp);font-size:13px;letter-spacing:.1em;color:var(--fg);white-space:nowrap;text-align:right}
+.price small{display:block;font-family:var(--sans);font-size:10.5px;color:var(--mut);
+  letter-spacing:0;margin-top:5px;font-weight:300;text-transform:none}
+.includes{list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13.5px;
+  color:var(--mut);font-weight:300}
+.includes li{padding-left:16px;position:relative;line-height:1.55}
+.includes li:before{content:'';position:absolute;left:0;top:9px;width:5px;height:1px;background:var(--ink)}
+.rates{list-style:none;font-size:13px;color:var(--mut);border-top:1px solid var(--line);font-weight:300}
+.rates li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.rates li b{font-family:var(--disp);font-size:12px;color:var(--fg);white-space:nowrap;letter-spacing:.06em}
+.cardfoot{margin-top:auto;padding-top:8px;display:flex;align-items:center;
   justify-content:space-between;gap:12px;flex-wrap:wrap}
-.tag{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);font-weight:700}
-.fineprint{font-size:11.5px;color:var(--mut);opacity:.85;line-height:1.5}
+.tag{font-family:var(--disp);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink)}
+.fineprint{font-size:11.5px;color:var(--mut);opacity:.9;line-height:1.55;font-weight:300}
 
 /* ===== PROYECTOS ===== */
-.proj{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.proj{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 @media(min-width:800px){.proj{grid-template-columns:repeat(3,1fr)}}
-.pcard{position:relative;overflow:hidden;border-radius:4px;aspect-ratio:3/4;background:var(--soft)}
-.pcard img{width:100%;height:100%;object-fit:cover;transition:transform .6s;}
-.pcard:hover img{transform:scale(1.05)}
-.plist{list-style:none;margin-top:clamp(26px,3.6vw,40px);border-top:1px solid var(--line)}
+.pcard{overflow:hidden;aspect-ratio:3/4;background:var(--soft)}
+.pcard img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.pcard:hover img{transform:scale(1.04)}
+.plist{list-style:none;margin-top:clamp(26px,3.6vw,42px);border-top:1px solid var(--line)}
 .plist li{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
-  padding:15px 0;border-bottom:1px solid var(--line);font-size:14px;align-items:baseline}
-.plist li b{font-weight:600}
-.plist li span{font-size:12px;color:var(--mut);letter-spacing:.02em}
+  padding:16px 0;border-bottom:1px solid var(--line);font-size:13.5px;align-items:baseline}
+.plist li span{font-size:11.5px;color:var(--mut);font-weight:300}
 
 /* ===== MARCAS ===== */
-.marcas{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
-.mar{border:1px solid var(--line);border-radius:3px;padding:13px 20px;background:var(--card);
-  font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--fg);opacity:.82}
-.mar:hover{opacity:1;border-color:var(--accent)}
+.marcas{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+@media(min-width:720px){.marcas{grid-template-columns:repeat(3,1fr)}}
+.mar{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 16px;
+  font-family:var(--disp);font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--fg);text-align:center;opacity:.85}
+.mar:hover{opacity:1;background:var(--soft)}
 
 /* ===== CALENDARIO ===== */
 .events{border-top:1px solid var(--line)}
-.ev{display:grid;grid-template-columns:1fr;gap:14px;padding:clamp(22px,3.2vw,32px) 0;
-  border-bottom:1px solid var(--line);align-items:center;transition:background .2s}
-@media(min-width:840px){.ev{grid-template-columns:132px 1fr auto;gap:28px}}
+.ev{display:grid;grid-template-columns:1fr;gap:14px;padding:clamp(22px,3.2vw,34px) 0;
+  border-bottom:1px solid var(--line);align-items:center;transition:background .25s}
+@media(min-width:840px){.ev{grid-template-columns:130px 1fr auto;gap:30px}}
 .ev:hover{background:var(--soft)}
-.evdate{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--accent);
-  text-transform:uppercase;font-weight:700;line-height:1.5}
-.evinfo h3{margin-bottom:6px}
-.evmeta{display:flex;gap:15px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin-top:8px}
-.evmeta span{display:inline-flex;align-items:center;gap:6px}
-.evmeta span:before{content:'';width:4px;height:4px;border-radius:50%;background:var(--accent);opacity:.6}
+.evdate{font-family:var(--disp);font-size:11px;letter-spacing:.2em;color:var(--ink);
+  text-transform:uppercase;line-height:1.6}
+.evinfo h3{margin-bottom:8px}
+.evmeta{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--mut);margin-top:8px;
+  font-weight:300;letter-spacing:.04em}
+.evmeta span{display:inline-flex;align-items:center;gap:7px}
+.evmeta span:before{content:'';width:4px;height:1px;background:var(--ink)}
 .evcta{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.plazas{font-size:11px;color:var(--mut);font-family:var(--mono);letter-spacing:.05em}
-.nota{font-size:12.5px;color:var(--mut);font-style:italic;margin-top:18px;max-width:64ch}
+.plazas{font-family:var(--disp);font-size:9px;color:var(--mut);letter-spacing:.18em;text-transform:uppercase}
+.nota{font-size:12px;color:var(--mut);font-style:italic;margin-top:20px;max-width:64ch;font-weight:300}
 
 /* ===== FORM ===== */
-.formcard{background:var(--card);border:1px solid var(--line);border-radius:5px;padding:clamp(22px,3.6vw,44px)}
-.fgrid{display:grid;grid-template-columns:1fr;gap:17px}
+.formcard{background:var(--card);border:1px solid var(--line);padding:clamp(22px,3.6vw,46px)}
+.fgrid{display:grid;grid-template-columns:1fr;gap:18px}
 @media(min-width:720px){.fgrid.two{grid-template-columns:1fr 1fr}}
-.f fieldset{border:none;margin-bottom:24px}
-.f label{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
-  font-weight:700;color:var(--mut);margin-bottom:7px}
+.f .sect{font-family:var(--disp);font-size:10px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--ink);padding-bottom:9px;border-bottom:1px solid var(--line);margin:30px 0 20px}
+.f .sect:first-child{margin-top:0}
+.f label{display:block;font-family:var(--disp);font-size:9.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--mut);margin-bottom:8px}
 .f input,.f select,.f textarea{width:100%;background:var(--bg);border:1px solid var(--line);
-  border-radius:3px;padding:12px 13px;font-family:var(--sans);font-size:15px;color:var(--fg);
-  outline:none;transition:border-color .2s}
-.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--accent)}
-.f textarea{min-height:100px;resize:vertical}
-.f button{width:100%;margin-top:6px}
-.ok{display:none;margin-top:16px;padding:13px 15px;border-radius:3px;font-size:13px;
-  background:color-mix(in srgb,var(--accent) 12%,transparent);border:1px solid var(--accent);color:var(--fg)}
+  padding:12px 13px;font-family:var(--sans);font-size:14.5px;color:var(--fg);outline:none;
+  transition:border-color .2s;font-weight:300;border-radius:0}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--fg)}
+.f textarea{min-height:92px;resize:vertical}
+.f .opts{display:flex;flex-wrap:wrap;gap:8px}
+.f .opts label{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);
+  padding:10px 14px;cursor:pointer;font-family:var(--sans);font-size:12.5px;letter-spacing:0;
+  text-transform:none;color:var(--fg);margin:0;font-weight:300}
+.f .opts input{width:auto;margin:0}
+.f .opts label:has(input:checked){border-color:var(--fg);background:var(--soft)}
+.f button{width:100%;margin-top:26px}
+.ok{display:none;margin-top:16px;padding:14px 16px;font-size:13px;
+  background:var(--soft);border:1px solid var(--ink);color:var(--fg);font-weight:300}
 
 /* ===== GALERIA ===== */
-.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
 @media(min-width:780px){.gal{grid-template-columns:repeat(4,1fr)}}
-.gal figure{aspect-ratio:1;overflow:hidden;border-radius:3px;background:var(--soft)}
-.gal img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.gal figure{aspect-ratio:1;overflow:hidden;background:var(--soft)}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
 .gal figure:hover img{transform:scale(1.05)}
 
 /* ===== PAGOS ===== */
-.pay{display:grid;grid-template-columns:1fr;gap:13px;margin-top:24px}
+.pay{display:grid;grid-template-columns:1fr;gap:0;margin-top:26px;
+  border-top:1px solid var(--line);border-left:1px solid var(--line)}
 @media(min-width:780px){.pay{grid-template-columns:repeat(3,1fr)}}
-.payitem{border:1px solid var(--line);border-radius:4px;padding:19px;background:var(--card)}
-.payitem b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:8px}
-.payitem p{font-size:13px;line-height:1.6}
+.payitem{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px}
+.payitem b{display:block;font-family:var(--disp);font-size:9.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink);margin-bottom:10px}
+.payitem p{font-size:13px;line-height:1.65;font-weight:300}
 
 /* ===== CONTACTO ===== */
 .contacto{text-align:center}
-.contacto h2{margin-bottom:18px}
-.ctabig{display:inline-block;font-family:var(--disp);font-size:clamp(20px,3.6vw,40px);
-  border-bottom:2px solid var(--accent);padding-bottom:5px;margin:6px 0 28px;word-break:break-word}
-footer{border-top:1px solid var(--line);padding:32px 0 38px;font-size:11.5px;color:var(--mut)}
+.contacto h2{margin-bottom:24px}
+.ctabig{display:inline-block;font-family:var(--disp);font-size:clamp(15px,2.6vw,26px);
+  letter-spacing:.1em;border-bottom:1px solid var(--ink);padding-bottom:6px;margin:6px 0 30px;
+  word-break:break-word}
+footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color:var(--mut);font-weight:300}
 .footin{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center}
 
-/* ===== SWITCH ===== */
+/* switch */
 .tswitch{position:fixed;bottom:14px;right:14px;z-index:70;display:flex;gap:4px;
-  background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px;
-  box-shadow:0 8px 30px rgba(0,0,0,.3)}
-.tswitch span{font-size:8.5px;letter-spacing:.14em;color:var(--mut);align-self:center;
-  padding:0 3px 0 8px;text-transform:uppercase;font-weight:700}
-.tswitch button{width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;
-  font-family:var(--mono);font-size:11.5px;font-weight:800;background:transparent;color:var(--mut)}
-.tswitch button.on{background:var(--accent);color:var(--onb)}
+  background:var(--card);border:1px solid var(--line);padding:5px}
+.tswitch span{font-family:var(--disp);font-size:8px;letter-spacing:.16em;color:var(--mut);
+  align-self:center;padding:0 4px 0 8px;text-transform:uppercase}
+.tswitch button{width:30px;height:30px;border:none;cursor:pointer;font-family:var(--disp);
+  font-size:11px;background:transparent;color:var(--mut)}
+.tswitch button.on{background:var(--fg);color:var(--bg)}
 </style>
 </head>
 <body class="t-b">
 
-<div class="mock">MAQUETA · contenido real de su media kit · los formularios todavía no envían nada</div>
+<div class="mock">Maqueta · identidad del brandbook 2026 · los formularios todavía no envían</div>
 
 <nav class="nav">
   <div class="navin">
-    <a class="brand" href="#top"><img src="assets/lu.jpg" alt="Luciana Burkle">Dimension&nbsp;Lucy</a>
+    <a class="brand" href="#top"><img src="assets/logo.png" alt="Dimensión Lucy"></a>
     <div class="navlinks">
       <a href="#sobre">Sobre mí</a><a href="#servicios">Servicios</a>
       <a href="#proyectos">Proyectos</a><a href="#calendario">Calendario</a><a href="#pagos">Pagos</a>
     </div>
-    <a class="btn sm" href="#reservas">Reservar</a>
+    <a class="btn sm ghost" href="#trapeze">Inscripción</a>
   </div>
 </nav>
 
 <main id="top">
 
   <header class="hero">
-    <img class="heroimg" src="assets/hero.jpg" alt="Luciana Burkle en vuelo">
-    <div class="herotext">
-      <div class="eyebrow">Luciana Burkle · Alpes franceses &amp; México</div>
-      <h1>Volar.<br>Crear.<br>Explorar.</h1>
-      <p class="lead">Experiencias aéreas, storytelling creativo y presencia. Coaching de paracaidismo y parapente, Trapeze Flow y contenido filmado desde el aire.</p>
-      <div class="chips">
-        <span class="chip">Skydiving</span><span class="chip">Paragliding</span>
-        <span class="chip">Trapeze&nbsp;Flow</span><span class="chip">Content</span>
-      </div>
+    <div class="heroin">
+      <img class="logo" src="assets/logo.png" alt="Dimensión Lucy">
+      <div class="tag">Aerial experiences, creative storytelling &amp; presence</div>
+      <h1>Volar · Crear · Habitar</h1>
+      <p class="lead">Coaching de paracaidismo y parapente, Trapeze Flow y producción audiovisual. Experiencias para habitar el cuerpo y el presente — desde el aire.</p>
       <div class="herobtns">
         <a class="btn" href="#calendario">Ver experiencias</a>
         <a class="btn ghost" href="#reservas">Solicitar coaching</a>
@@ -249,28 +257,32 @@ footer{border-top:1px solid var(--line);padding:32px 0 38px;font-size:11.5px;col
     </div>
   </header>
 
+  <div class="band">
+    <figure><img src="assets/hero.jpg" alt="Luciana Burkle en vuelo"></figure>
+    <figure><img src="assets/cierre.jpg" alt=""></figure>
+  </div>
+
   <div class="metrics">
     <div class="metin">
       <div class="met"><b>79.4K</b><span>Instagram</span></div>
       <div class="met"><b>309K</b><span>TikTok</span></div>
-      <div class="met"><b>46K</b><span>Cuentas alcanzadas</span></div>
+      <div class="met"><b>46K</b><span>Alcance</span></div>
       <div class="met"><b>244K</b><span>Visualizaciones</span></div>
-      <div class="met"><b>9</b><span>Marcas colaboradoras</span></div>
+      <div class="met"><b>9</b><span>Marcas</span></div>
     </div>
   </div>
 
-  <!-- SOBRE -->
   <section id="sobre">
     <div class="wrap grid2">
       <div class="sobreimg"><img src="assets/sobre.jpg" alt="Luciana Burkle"></div>
       <div>
         <div class="shead">
-          <div class="eyebrow">01 — Quién soy</div>
-          <h2>Atleta aérea<br>y creadora.</h2>
+          <div class="eyebrow">01 — La marca</div>
+          <h2>Movimiento, presencia y narrativa</h2>
         </div>
-        <p class="lead">Soy Lucy, atleta aérea y creadora de contenido especializada en deportes de aventura, viajes y lifestyle. Combino mi gusto por los deportes y el arte con la producción audiovisual para crear contenido auténtico que conecta con gente apasionada por la vida outdoor.</p>
-        <p style="margin-top:16px;max-width:62ch">Las marcas trabajan conmigo porque ofrezco una perspectiva que nadie más da: <b>contenido filmado desde el aire</b>, storytelling genuino y una comunidad que confía en mis recomendaciones. Mi experiencia como Social Media Manager me permite entender lo que cada marca necesita y traducirlo en contenido que da resultados.</p>
-        <div class="quote">«If this way of life resonates with you, you are already part of it.»</div>
+        <p class="lead">Dimensión Lucy es un espacio creativo y experiencial donde convergen los deportes aéreos, el arte, la naturaleza y el storytelling visual. Una plataforma desde la que Lucy diseña, facilita y comparte experiencias que invitan a habitar el cuerpo y el presente.</p>
+        <p style="margin-top:18px;max-width:62ch">Soy Lucy, atleta aérea y creadora de contenido especializada en deportes de aventura, viajes y lifestyle. Trabajo con personas y marcas que buscan algo más que impacto: <b>conexión, sensibilidad y sentido</b>.</p>
+        <div class="quote">If this way of life resonates with you,<br>you are already part of it</div>
         <div class="sobremeta">
           <div><b>Base</b><span>Alpes (FR) · México</span></div>
           <div><b>Idiomas</b><span>ES · FR · EN</span></div>
@@ -282,17 +294,15 @@ footer{border-top:1px solid var(--line);padding:32px 0 38px;font-size:11.5px;col
 
   <hr class="sep">
 
-  <!-- SERVICIOS -->
   <section id="servicios">
     <div class="wrap">
       <div class="shead">
         <div class="eyebrow">02 — Servicios</div>
-        <h2>Cuatro formas<br>de trabajar juntos.</h2>
+        <h2>Cuatro líneas de trabajo</h2>
         <p class="lead">Sesiones individuales, paquetes personalizados y servicios mensuales. Los proyectos a medida se cotizan después de hablar de objetivos, fechas y logística.</p>
       </div>
 
       <div class="serv">
-
         <article class="card">
           <div class="cardimg"><img src="assets/pr6.jpg" alt=""></div>
           <div class="cardbody">
@@ -304,9 +314,9 @@ footer{border-top:1px solid var(--line);padding:32px 0 38px;font-size:11.5px;col
               <li>Coaching individual de belly flying, tracking y movimiento corporal</li>
               <li>Estabilidad, control y conciencia en caída libre</li>
               <li>Coaching USPA para alumnos hacia la licencia A</li>
-              <li>Briefing, acompañamiento en el aire, grabación y debriefing con vídeo</li>
+              <li>Briefing, acompañamiento en el aire, grabación y debriefing</li>
             </ul>
-            <p class="fineprint">Cotización final según ubicación, número de saltos y objetivos. Tickets de salto y gastos aparte. Saldo en efectivo el día del entrenamiento.</p>
+            <p class="fineprint">Cotización final según ubicación, saltos y objetivos. Tickets de salto y gastos aparte. Saldo en efectivo el día del entrenamiento.</p>
             <div class="cardfoot"><span class="tag">Reserva con depósito</span><a class="btn ghost sm" href="#reservas">Solicitar</a></div>
           </div>
         </article>
@@ -335,16 +345,16 @@ footer{border-top:1px solid var(--line);padding:32px 0 38px;font-size:11.5px;col
           <div class="cardbody">
             <div class="cardtop">
               <div><div class="tag">C · Trapeze Flow</div><h3>Trapeze Flow Experience</h3></div>
-              <div class="price">6.000 MXN<small>jornada tándem · workshop 1.000 €</small></div>
+              <div class="price">6.000 MXN<small>tándem · workshop 1.000 €</small></div>
             </div>
             <ul class="includes">
               <li>Entrenamiento para pilotos tándem con sistema de trapecio</li>
-              <li>Dos vuelos de entrenamiento · teoría y prácticas en tierra</li>
+              <li>Dos vuelos de entrenamiento · teoría y práctica en tierra</li>
               <li>Procedimientos en vuelo · grabación Insta360</li>
               <li>Workshops grupales, shows aéreos y colaboraciones</li>
             </ul>
-            <p class="fineprint">Desarrollado junto a Vicky Casabone. El piloto aporta equipo tándem propio o coordina alquiler. Early bird y precio dúo disponibles.</p>
-            <div class="cardfoot"><span class="tag">Workshops con cupo</span><a class="btn ghost sm" href="#calendario">Ver fechas</a></div>
+            <p class="fineprint">Junto a Vicky Casabone. El piloto aporta equipo tándem propio o coordina alquiler. Early bird y precio dúo disponibles.</p>
+            <div class="cardfoot"><span class="tag">Con cupo</span><a class="btn ghost sm" href="#trapeze">Inscribirme</a></div>
           </div>
         </article>
 
@@ -369,19 +379,17 @@ footer{border-top:1px solid var(--line);padding:32px 0 38px;font-size:11.5px;col
             <div class="cardfoot"><span class="tag">Marcas &amp; atletas</span><a class="btn ghost sm" href="#reservas">Pedir cotización</a></div>
           </div>
         </article>
-
       </div>
     </div>
   </section>
 
   <hr class="sep">
 
-  <!-- PROYECTOS -->
   <section id="proyectos">
     <div class="wrap">
       <div class="shead">
         <div class="eyebrow">03 — Proyectos</div>
-        <h2>Dónde he estado.</h2>
+        <h2>Dónde ha estado</h2>
       </div>
       <div class="proj">
         <figure class="pcard"><img src="assets/pr1.jpg" alt=""></figure>
@@ -391,7 +399,6 @@ footer{border-top:1px solid var(--line);padding:32px 0 38px;font-size:11.5px;col
         <figure class="pcard"><img src="assets/cierre.jpg" alt=""></figure>
         <figure class="pcard"><img src="assets/pr6.jpg" alt=""></figure>
       </div>
-
       <ul class="plist">
         <li><b>Social Media Manager de Soul Flyers</b><span>Gestión de redes y contenido del equipo</span></li>
         <li><b>Trapeze Flow</b><span>Proyecto junto a Vicky Casabone</span></li>
@@ -401,14 +408,12 @@ footer{border-top:1px solid var(--line);padding:32px 0 38px;font-size:11.5px;col
         <li><b>Paracaidismo y fotografía</b><span>Fotografía aérea y camera flying</span></li>
       </ul>
 
-      <div style="margin-top:clamp(44px,6vw,72px)">
-        <div class="eyebrow" style="margin-bottom:14px">Marcas con las que ha colaborado</div>
+      <div style="margin-top:clamp(46px,6vw,74px)">
+        <div class="eyebrow" style="margin-bottom:18px">Marcas con las que ha colaborado</div>
         <div class="marcas">
-          <span class="mar">Decathlon</span><span class="mar">lululemon</span>
-          <span class="mar">Ducati</span><span class="mar">Televisa</span>
-          <span class="mar">GNP Seguros</span><span class="mar">XIELO</span>
-          <span class="mar">WindAlps</span><span class="mar">SkyVibration</span>
-          <span class="mar">Sky High Air School</span>
+          <div class="mar">Decathlon</div><div class="mar">lululemon</div><div class="mar">Ducati</div>
+          <div class="mar">Televisa</div><div class="mar">GNP Seguros</div><div class="mar">XIELO</div>
+          <div class="mar">WindAlps</div><div class="mar">SkyVibration</div><div class="mar">Sky High Air School</div>
         </div>
       </div>
     </div>
@@ -416,112 +421,139 @@ footer{border-top:1px solid var(--line);padding:32px 0 38px;font-size:11.5px;col
 
   <hr class="sep">
 
-  <!-- CALENDARIO -->
   <section id="calendario">
     <div class="wrap">
       <div class="shead">
         <div class="eyebrow">04 — Calendario</div>
-        <h2>Eventos y<br>experiencias.</h2>
+        <h2>Eventos y experiencias</h2>
         <p class="lead">Workshops, viajes de aventura y campamentos. Grupos pequeños, entre 3 y 10 personas.</p>
       </div>
-
       <div class="events">
         <article class="ev">
           <div class="evdate">Nov<br>2026</div>
           <div class="evinfo">
-            <h3>PROYECTO INHOPP · Colombia 🇨🇴</h3>
+            <h3>Proyecto INHOPP · Colombia</h3>
             <div class="evmeta"><span>Colombia</span><span>Noviembre 2026</span><span>Plazas limitadas</span></div>
-            <p style="font-size:13px;margin-top:9px;max-width:62ch">Experiencia y proyecto audiovisual en Colombia. Inscripción y pago en línea.</p>
+            <p style="font-size:13px;margin-top:10px;max-width:62ch;font-weight:300">Experiencia y proyecto audiovisual en Colombia. Inscripción y pago en línea.</p>
           </div>
           <div class="evcta"><span class="plazas">Reserva en línea</span><a class="btn sm" href="https://buy.stripe.com/eVq6oJ4Z9e8y5RR21Ggbm0g" target="_blank" rel="noopener">Reservar</a></div>
         </article>
-
         <article class="ev">
-          <div class="evdate">Fecha<br>por confirmar</div>
+          <div class="evdate">Por<br>confirmar</div>
           <div class="evinfo">
             <h3>Trapeze Flow Workshop</h3>
             <div class="evmeta"><span>Alpes franceses</span><span>1.000 € / persona</span><span>3–4 días</span><span>8 plazas</span></div>
-            <p style="font-size:13px;margin-top:9px;max-width:62ch">Entrenamiento en tierra, vuelos con trapecio, acompañamiento de pilotos profesionales, briefings y debriefings.</p>
+            <p style="font-size:13px;margin-top:10px;max-width:62ch;font-weight:300">Entrenamiento en tierra, vuelos con trapecio, acompañamiento de pilotos profesionales, briefings y debriefings.</p>
           </div>
-          <div class="evcta"><span class="plazas">Cupo limitado</span><a class="btn sm" href="#reservas">Inscribirme</a></div>
+          <div class="evcta"><span class="plazas">Cupo limitado</span><a class="btn sm" href="#trapeze">Inscribirme</a></div>
         </article>
-
         <article class="ev">
-          <div class="evdate">Fechas<br>por confirmar</div>
+          <div class="evdate">Por<br>confirmar</div>
           <div class="evinfo">
             <h3>Adventure Trip · Parapente</h3>
             <div class="evmeta"><span>Alpes franceses</span><span>1.750 € / 7 días</span><span>Vuelo XC</span><span>6 plazas</span></div>
-            <p style="font-size:13px;margin-top:9px;max-width:62ch">Planificación diaria según meteo, briefing de estrategia, acompañamiento en vuelo y debriefing con análisis de trazas.</p>
+            <p style="font-size:13px;margin-top:10px;max-width:62ch;font-weight:300">Planificación diaria según meteo, briefing de estrategia, acompañamiento en vuelo y debriefing con análisis de trazas.</p>
           </div>
-          <div class="evcta"><span class="plazas">Cupo limitado</span><a class="btn sm" href="#reservas">Inscribirme</a></div>
+          <div class="evcta"><span class="plazas">Cupo limitado</span><a class="btn sm" href="#reservas">Solicitar</a></div>
         </article>
       </div>
-
       <p class="nota">Las fechas se confirman según meteorología y disponibilidad. El calendario se actualiza aquí mismo.</p>
     </div>
   </section>
 
   <hr class="sep">
 
-  <!-- RESERVAS -->
-  <section id="reservas">
+  <!-- INSCRIPCION TRAPEZE (su formulario real) -->
+  <section id="trapeze">
     <div class="wrap">
       <div class="shead">
-        <div class="eyebrow">05 — Reservas</div>
-        <h2>Cuéntame qué<br>quieres hacer.</h2>
-        <p class="lead">Para coaching y viajes personalizados no reservo automáticamente: primero confirmo meteorología, ubicación y disponibilidad. Después acordamos el depósito.</p>
+        <div class="eyebrow">05 — Inscripción</div>
+        <h2>Trapeze Flow</h2>
+        <p class="lead">Formulario de inscripción para workshops y entrenamientos de trapecio. Es el mismo que ya usas en Google Forms, integrado en la página.</p>
       </div>
 
       <form class="f formcard" onsubmit="return fake(event)">
-        <fieldset>
-          <div class="fgrid two">
-            <div><label>Disciplina</label>
-              <select>
-                <option>Skydiving — coaching</option>
-                <option>Parapente — coaching o viaje</option>
-                <option>Trapeze Flow</option>
-                <option>Contenido / redes</option>
-              </select>
-            </div>
-            <div><label>Tu nivel</label>
-              <select><option>Iniciación</option><option>Intermedio</option>
-                <option>Avanzado</option><option>Competidor / profesional</option></select>
-            </div>
-          </div>
-        </fieldset>
-        <fieldset><div class="fgrid"><div>
-          <label>Objetivos</label>
-          <textarea placeholder="Qué quieres mejorar, qué te cuesta hoy, qué te gustaría volar…"></textarea>
-        </div></div></fieldset>
-        <fieldset>
-          <div class="fgrid two">
-            <div><label>Fechas que te sirven</label><input type="text" placeholder="Ej. segunda quincena de junio"></div>
-            <div><label>Ubicación deseada</label><input type="text" placeholder="Alpes, Valle de Bravo, otro…"></div>
-            <div><label>Experiencia previa</label><input type="text" placeholder="Nº de saltos, horas de vuelo, licencias"></div>
-            <div><label>Equipamiento</label><input type="text" placeholder="Vela, arnés, reserva, tándem…"></div>
-          </div>
-        </fieldset>
-        <fieldset>
-          <div class="fgrid two">
-            <div><label>Nombre</label><input type="text" required></div>
-            <div><label>Email</label><input type="email" required></div>
-            <div><label>País</label><input type="text"></div>
-            <div><label>Instagram (opcional)</label><input type="text" placeholder="@"></div>
-          </div>
-        </fieldset>
-        <button class="btn" type="submit">Enviar solicitud</button>
-        <div class="ok" id="ok">Solicitud registrada. Lucy contesta con disponibilidad y meteorología en 24–48 h.</div>
-        <p class="fineprint" style="margin-top:12px">En la versión final este formulario llega directo a su Telegram y queda en su panel de inscripciones.</p>
+        <div class="sect">Personal data</div>
+        <div class="fgrid two">
+          <div><label>Full name *</label><input type="text" required></div>
+          <div><label>WhatsApp *</label><input type="tel" required placeholder="+52 …"></div>
+          <div><label>Nationality *</label><input type="text" required></div>
+          <div><label>Date of birth</label><input type="date"></div>
+        </div>
+        <div class="fgrid" style="margin-top:18px">
+          <div><label>Relevant chronic diseases *</label><textarea required placeholder="Si no tienes ninguna, escribe «none»."></textarea></div>
+        </div>
+
+        <div class="sect">Experience</div>
+        <label>Do you have previous experience in any of the following? *</label>
+        <div class="opts">
+          <label><input type="checkbox"> Previous paragliding tandem flight</label>
+          <label><input type="checkbox"> Paragliding pilot</label>
+          <label><input type="checkbox"> Trapeze / Aerials</label>
+          <label><input type="checkbox"> Dance / Movement</label>
+        </div>
+        <div class="fgrid" style="margin-top:18px">
+          <div><label>If yes, please briefly describe your experience</label><input type="text"></div>
+        </div>
+
+        <div class="sect">Insurance &amp; Safety</div>
+        <p class="fineprint" style="margin-bottom:14px">If not, we can provide fully covered insurance which includes aerial activities.</p>
+        <label>Do you have personal accident or sports insurance?</label>
+        <div class="opts">
+          <label><input type="radio" name="seguro" value="si"> Yes</label>
+          <label><input type="radio" name="seguro" value="no"> No — please arrange insurance for me</label>
+        </div>
+
+        <button class="btn" type="submit">Enviar inscripción</button>
+        <div class="ok" id="ok">Inscripción registrada. Lucy confirma plaza y método de pago en 24–48 h.</div>
       </form>
     </div>
   </section>
 
   <hr class="sep">
 
-  <!-- GALERIA -->
+  <section id="reservas">
+    <div class="wrap">
+      <div class="shead">
+        <div class="eyebrow">06 — Reservas privadas</div>
+        <h2>Cuéntame qué quieres hacer</h2>
+        <p class="lead">Para coaching y viajes personalizados no reservo automáticamente: primero confirmo meteorología, ubicación y disponibilidad. Después acordamos el depósito.</p>
+      </div>
+      <form class="f formcard" onsubmit="return fake(event)">
+        <div class="fgrid two">
+          <div><label>Disciplina</label>
+            <select><option>Skydiving — coaching</option><option>Parapente — coaching o viaje</option>
+              <option>Trapeze Flow</option><option>Contenido / redes</option></select></div>
+          <div><label>Tu nivel</label>
+            <select><option>Iniciación</option><option>Intermedio</option><option>Avanzado</option>
+              <option>Competidor / profesional</option></select></div>
+        </div>
+        <div class="fgrid" style="margin-top:18px">
+          <div><label>Objetivos</label><textarea placeholder="Qué quieres mejorar, qué te cuesta hoy, qué te gustaría volar…"></textarea></div>
+        </div>
+        <div class="fgrid two" style="margin-top:18px">
+          <div><label>Fechas que te sirven</label><input type="text" placeholder="Segunda quincena de junio…"></div>
+          <div><label>Ubicación deseada</label><input type="text" placeholder="Alpes, Valle de Bravo, otro…"></div>
+          <div><label>Experiencia previa</label><input type="text" placeholder="Saltos, horas de vuelo, licencias"></div>
+          <div><label>Equipamiento</label><input type="text" placeholder="Vela, arnés, reserva, tándem…"></div>
+        </div>
+        <div class="fgrid two" style="margin-top:18px">
+          <div><label>Nombre</label><input type="text" required></div>
+          <div><label>Email</label><input type="email" required></div>
+          <div><label>País</label><input type="text"></div>
+          <div><label>Instagram (opcional)</label><input type="text" placeholder="@"></div>
+        </div>
+        <button class="btn" type="submit">Enviar solicitud</button>
+        <div class="ok" id="ok2">Solicitud registrada. Lucy contesta con disponibilidad y meteorología en 24–48 h.</div>
+      </form>
+    </div>
+  </section>
+
+  <hr class="sep">
+
   <section id="galeria">
     <div class="wrap">
-      <div class="shead"><div class="eyebrow">06 — Galería</div><h2>Lo que se ve<br>desde arriba.</h2></div>
+      <div class="shead"><div class="eyebrow">07 — Galería</div><h2>Desde arriba</h2></div>
       <div class="gal">
         <figure><img src="assets/hero.jpg" alt=""></figure>
         <figure><img src="assets/pr1.jpg" alt=""></figure>
@@ -530,24 +562,23 @@ footer{border-top:1px solid var(--line);padding:32px 0 38px;font-size:11.5px;col
         <figure><img src="assets/pr2.jpg" alt=""></figure>
         <figure><img src="assets/cierre.jpg" alt=""></figure>
         <figure><img src="assets/pr6.jpg" alt=""></figure>
-        <figure><img src="assets/cierre.jpg" alt=""></figure>
+        <figure><img src="assets/sobre.jpg" alt=""></figure>
       </div>
     </div>
   </section>
 
   <hr class="sep">
 
-  <!-- PAGOS -->
   <section id="pagos">
     <div class="wrap">
-      <div class="shead"><div class="eyebrow">07 — Pagos</div><h2>Cómo se paga.</h2></div>
+      <div class="shead"><div class="eyebrow">08 — Pagos</div><h2>Cómo se paga</h2></div>
       <div class="pay">
         <div class="payitem"><b>Métodos</b>
-          <p>Stripe (eventos con cupo) · PayPal · transferencia bancaria · Revolut · efectivo en sitio. Los pagos llegan directo a las cuentas de Dimension Lucy.</p></div>
+          <p>Stripe para eventos con cupo · PayPal · transferencia bancaria · Revolut · efectivo en sitio. Los pagos llegan directo a las cuentas de Dimensión Lucy.</p></div>
         <div class="payitem"><b>Monedas</b>
-          <p>EUR para servicios en Europa · MXN para eventos y entrenamientos en México · USD como opción para clientes internacionales.</p></div>
+          <p>EUR para servicios en Europa · MXN para eventos en México · USD para clientes internacionales.</p></div>
         <div class="payitem"><b>Modalidad</b>
-          <p>Coaching: depósito y saldo el día de la actividad. Workshops: depósito o pago completo según el evento. Viajes: depósito para confirmar y saldo antes de la salida.</p></div>
+          <p>Coaching: depósito y saldo el día. Workshops: depósito o pago completo. Viajes: depósito para confirmar y saldo antes de la salida.</p></div>
       </div>
       <p class="nota">Empresa registrada en Francia. Factura disponible con impuestos cuando se solicite.</p>
     </div>
@@ -557,8 +588,8 @@ footer{border-top:1px solid var(--line);padding:32px 0 38px;font-size:11.5px;col
 
   <section id="contacto" class="contacto">
     <div class="wrap">
-      <div class="eyebrow" style="margin-bottom:14px">08 — Contacto</div>
-      <h2>Hablemos.</h2>
+      <div class="eyebrow" style="margin-bottom:18px">09 — Contacto</div>
+      <h2>Hablemos</h2>
       <a class="ctabig" href="mailto:luciana.burkle@gmail.com">luciana.burkle@gmail.com</a>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
         <a class="btn" href="https://instagram.com/dimensionlucy" target="_blank" rel="noopener">@dimensionlucy</a>
@@ -571,22 +602,23 @@ footer{border-top:1px solid var(--line);padding:32px 0 38px;font-size:11.5px;col
 
 <footer>
   <div class="wrap footin">
-    <span>© Dimension Lucy — Luciana Burkle</span>
+    <span>© Dimensión Lucy — Luciana Burkle</span>
     <span>Alpes franceses · México</span>
     <span><a href="#top">Volver arriba</a></span>
   </div>
 </footer>
 
 <div class="tswitch">
-  <span>Versión</span>
+  <span>Fondo</span>
   <button data-t="a">A</button><button data-t="b" class="on">B</button><button data-t="c">C</button>
 </div>
 
 <script>
 function fake(e){
   e.preventDefault();
-  document.getElementById('ok').style.display='block';
-  e.target.querySelector('button[type=submit]').textContent='Enviado';
+  var b=e.target.querySelector('button[type=submit]');
+  b.textContent='Enviado';
+  var ok=e.target.querySelector('.ok'); if(ok) ok.style.display='block';
   return false;
 }
 function setTheme(t){

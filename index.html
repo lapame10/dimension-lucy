@@ -640,6 +640,21 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
   <button data-t="a">A</button><button data-t="b" class="on">B</button><button data-t="c">C</button>
 </div>
 
+<button class="pedirbtn" id="pedirBtn">✎ Pedir un cambio</button>
+
+<div class="pedir" id="pedir">
+  <div class="pedirbox">
+    <button class="pedircerrar" id="pedirX" aria-label="cerrar">×</button>
+    <h3>Pedir un cambio</h3>
+    <p>Escribe lo que quieres cambiar de la página: un texto, un precio, una foto, un evento. Llega directo a Pamela y te contesta en el día. <b>No es un chat en vivo.</b></p>
+    <textarea id="pedirTxt" placeholder="Ej.: añade un evento, cambia un precio, cambia una foto, quita una sección…"></textarea>
+    <div class="row">
+      <button class="btn" id="pedirEnviar">Enviar</button>
+      <button class="btn ghost" id="pedirCancelar">Cerrar</button>
+    </div>
+    <div class="pedirmsg" id="pedirMsg"></div>
+  </div>
+</div>
 <script>
 function fake(e){
   e.preventDefault();
@@ -691,20 +706,5 @@ if(q&&'abc'.includes(q)) setTheme(q);
   };
 })();
 </script>
-<button class="pedirbtn" id="pedirBtn">✎ Pedir un cambio</button>
-
-<div class="pedir" id="pedir">
-  <div class="pedirbox">
-    <button class="pedircerrar" id="pedirX" aria-label="cerrar">×</button>
-    <h3>Pedir un cambio</h3>
-    <p>Escribe lo que quieres cambiar de la página: un texto, un precio, una foto, un evento. Llega directo a Pamela y te contesta en el día. <b>No es un chat en vivo.</b></p>
-    <textarea id="pedirTxt" placeholder="Ej.: añade un evento, cambia un precio, cambia una foto, quita una sección…"></textarea>
-    <div class="row">
-      <button class="btn" id="pedirEnviar">Enviar</button>
-      <button class="btn ghost" id="pedirCancelar">Cerrar</button>
-    </div>
-    <div class="pedirmsg" id="pedirMsg"></div>
-  </div>
-</div>
 </body>
 </html>

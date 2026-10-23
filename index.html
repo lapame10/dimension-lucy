@@ -225,6 +225,32 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
 .tswitch button{width:30px;height:30px;border:none;cursor:pointer;font-family:var(--disp);
   font-size:11px;background:transparent;color:var(--mut)}
 .tswitch button.on{background:var(--fg);color:var(--bg)}
+
+/* ===== ventana "pedir un cambio" ===== */
+.pedirbtn{position:fixed;bottom:14px;left:14px;z-index:70;display:inline-flex;align-items:center;gap:8px;
+  background:var(--fg);color:var(--bg);border:none;cursor:pointer;padding:11px 16px;
+  font-family:var(--disp);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  box-shadow:0 6px 24px rgba(0,0,0,.22)}
+.pedirbtn:active{transform:scale(.97)}
+.pedir{position:fixed;inset:0;z-index:200;display:none;background:rgba(17,18,13,.55);
+  backdrop-filter:blur(3px);padding:16px;overflow:auto}
+.pedir.abierto{display:flex;align-items:center;justify-content:center}
+.pedirbox{background:var(--bg);color:var(--fg);border:1px solid var(--ink);max-width:520px;width:100%;
+  padding:clamp(22px,4vw,34px);position:relative}
+.pedirbox h3{font-family:var(--disp);font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--ink);margin-bottom:6px}
+.pedirbox p{font-size:12.5px;color:var(--mut);font-weight:300;margin-bottom:16px;line-height:1.55}
+.pedirbox textarea{width:100%;min-height:130px;background:var(--card);border:1px solid var(--line);
+  padding:13px;font-family:var(--sans);font-size:14.5px;color:var(--fg);outline:none;resize:vertical;
+  font-weight:300;border-radius:0}
+.pedirbox textarea:focus{border-color:var(--fg)}
+.pedirbox .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.pedirbox .row .btn{flex:1;min-width:130px}
+.pedircerrar{position:absolute;top:10px;right:12px;background:none;border:none;cursor:pointer;
+  font-size:20px;line-height:1;color:var(--mut);padding:4px}
+.pedirmsg{display:none;margin-top:14px;font-size:12.5px;color:var(--fg);font-weight:300;
+  border-top:1px solid var(--line);padding-top:12px}
+@media(max-width:700px){.pedirbtn{padding:9px 13px;font-size:8.5px;bottom:10px;left:10px}}
 @media(max-width:700px){.tswitch{transform:scale(.78);transform-origin:100% 100%;opacity:.75}}
 </style>
 </head>
@@ -629,6 +655,56 @@ function setTheme(t){
 document.querySelectorAll('.tswitch button').forEach(b=>b.onclick=()=>setTheme(b.dataset.t));
 var q=new URLSearchParams(location.search).get('t');
 if(q&&'abc'.includes(q)) setTheme(q);
+
+/* ===== pedir un cambio -> Firebase ===== */
+(function(){
+  var RTDB='https://plan-gym-8aff7-default-rtdb.firebaseio.com';
+  var btn=document.getElementById('pedirBtn'), box=document.getElementById('pedir'),
+      txt=document.getElementById('pedirTxt'), msg=document.getElementById('pedirMsg'),
+      env=document.getElementById('pedirEnviar');
+  function abrir(){ box.classList.add('abierto'); setTimeout(function(){txt.focus();},60); }
+  function cerrar(){ box.classList.remove('abierto'); }
+  btn.onclick=abrir;
+  document.getElementById('pedirX').onclick=cerrar;
+  document.getElementById('pedirCancelar').onclick=cerrar;
+  box.onclick=function(e){ if(e.target===box) cerrar(); };
+  env.onclick=async function(){
+    var t=(txt.value||'').trim();
+    if(t.length<4){ msg.style.display='block'; msg.textContent='Escribe un poco más para que se entienda.'; return; }
+    env.disabled=true; env.textContent='Enviando…';
+    var ts=Date.now();
+    try{
+      var r=await fetch(RTDB+'/dimensionlucy/peticiones/'+ts+'.json',{
+        method:'PUT', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({de:'lu', ts:ts, texto:t, pagina:'index', estetica:document.body.className})
+      });
+      if(!r.ok) throw new Error('http '+r.status);
+      msg.style.display='block';
+      msg.innerHTML='<b>Enviado.</b> Te contesto en el día.';
+      txt.value='';
+      setTimeout(cerrar,1800);
+    }catch(err){
+      msg.style.display='block';
+      msg.innerHTML='No se pudo enviar. Prueba otra vez, o escríbele a Pamela por Instagram.';
+    }
+    env.disabled=false; env.textContent='Enviar';
+  };
+})();
 </script>
+<button class="pedirbtn" id="pedirBtn">✎ Pedir un cambio</button>
+
+<div class="pedir" id="pedir">
+  <div class="pedirbox">
+    <button class="pedircerrar" id="pedirX" aria-label="cerrar">×</button>
+    <h3>Pedir un cambio</h3>
+    <p>Escribe lo que quieres cambiar de la página: un texto, un precio, una foto, un evento. Llega directo a Pamela y te contesta en el día. <b>No es un chat en vivo.</b></p>
+    <textarea id="pedirTxt" placeholder="Ej.: el workshop de trapecio es del 12 al 15 de marzo, 8 plazas, 950 €…"></textarea>
+    <div class="row">
+      <button class="btn" id="pedirEnviar">Enviar</button>
+      <button class="btn ghost" id="pedirCancelar">Cerrar</button>
+    </div>
+    <div class="pedirmsg" id="pedirMsg"></div>
+  </div>
+</div>
 </body>
 </html>

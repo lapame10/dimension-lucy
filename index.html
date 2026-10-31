@@ -255,10 +255,6 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
   padding:13px;font-family:var(--sans);font-size:14.5px;color:var(--fg);outline:none;resize:vertical;
   font-weight:300;border-radius:0}
 .pedirbox textarea:focus{border-color:var(--fg)}
-.pedirbox .pedirclave{width:100%;background:var(--card);border:1px solid var(--line);padding:11px 13px;
-  font-family:var(--sans);font-size:13.5px;color:var(--fg);outline:none;margin-bottom:10px;
-  font-weight:300;border-radius:0}
-.pedirbox .pedirclave:focus{border-color:var(--fg)}
 .pedirbox .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
 .pedirbox .row .btn{flex:1;min-width:130px}
 .pedircerrar{position:absolute;top:10px;right:12px;background:none;border:none;cursor:pointer;
@@ -680,8 +676,6 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
     <button class="pedircerrar" id="pedirX" aria-label="cerrar">×</button>
     <h3>Pedir un cambio</h3>
     <p>Escríbeme lo que quieras cambiar <b>o preguntar</b> sobre la página. Te contesto yo mismo aquí abajo y, si es un cambio, lo aplico. Suele tardar unos minutos — no hace falta que lo repitas.</p>
-    <input class="pedirclave" id="pedirClave" type="password" autocomplete="off"
-           placeholder="Clave de acceso" aria-label="Clave de acceso" style="display:none">
     <textarea id="pedirTxt" placeholder="Ej.: añade un evento, cambia un precio, cambia una foto…"></textarea>
     <div class="row">
       <button class="btn" id="pedirEnviar">Enviar</button>
@@ -715,16 +709,18 @@ if(q&&'abc'.includes(q)) setTheme(q);
       env=document.getElementById('pedirEnviar');
   function abrir(){
     box.classList.add('abierto');
-    var ck=document.getElementById('pedirClave');
-    try{
-      var guardada=localStorage.getItem('lu_clave');
-      if(guardada){ ck.value=guardada; ck.style.display='none'; }
-      else { ck.style.display='block'; }
-    }catch(e){ ck.style.display='block'; }
-    setTimeout(function(){ (ck.style.display==='block'?ck:txt).focus(); },60);
+    setTimeout(function(){ txt.focus(); },60);
     cargarPeticiones();
     empezarReloj();
   }
+  var LLAVE='lu_clave';
+  function token(){ try{ return localStorage.getItem(LLAVE)||''; }catch(e){ return ''; } }
+  (function arranque(){
+    try{
+      var m=location.search.match(/[?&]c=([A-Za-z0-9\-]+)/);
+      if(m){ localStorage.setItem(LLAVE, m[1]); history.replaceState(null, '', location.pathname); }
+    }catch(e){}
+  })();
   function esc(s){ return String(s||'').replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   async function cargarPeticiones(){
     var lista=document.getElementById('pedirLista');
@@ -765,16 +761,13 @@ if(q&&'abc'.includes(q)) setTheme(q);
     if(t.length<4){ msg.style.display='block'; msg.textContent='Escribe un poco más para que se entienda.'; return; }
     env.disabled=true; env.textContent='Enviando…';
     var ts=Date.now();
-    var ck=document.getElementById('pedirClave');
-    var clave=(ck && ck.value || '').trim();
+    var clave=token();
     if(!clave){
       env.disabled=false; env.textContent='Enviar';
       msg.style.display='block';
-      msg.innerHTML='Falta la <b>clave de acceso</b>. Te la dio Pamela una vez; sin ella no puedo saber que eres tú, y el mensaje se perdería.';
-      ck.style.display='block'; ck.focus();
+      msg.innerHTML='Abre el <b>enlace privado</b> que te dio Pamela. Sin él no puedo saber que eres tú.';
       return;
     }
-    try{ localStorage.setItem('lu_clave', clave); }catch(e){}
     try{
       var r=await fetch(RTDB+'/dimensionlucy/peticiones/'+ts+'.json',{
         method:'PUT', headers:{'Content-Type':'application/json'},

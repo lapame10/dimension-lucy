@@ -265,6 +265,20 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
   font-size:20px;line-height:1;color:var(--mut);padding:4px}
 .pedirmsg{display:none;margin-top:14px;font-size:12.5px;color:var(--fg);font-weight:300;
   border-top:1px solid var(--line);padding-top:12px}
+
+/* lista de estado de las peticiones */
+.pedirlista{margin-top:14px}
+.pedlTit{font-family:var(--disp);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--mut);margin-bottom:9px}
+.pedl{display:flex;gap:9px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line)}
+.pedlE{flex:0 0 auto;font-family:var(--disp);font-size:7.5px;letter-spacing:.14em;
+  text-transform:uppercase;padding:3px 7px;border:1px solid var(--line);color:var(--mut);white-space:nowrap}
+.pedlE.aplicado{border-color:#58a700;color:#3d7300;background:#eef8e2}
+.pedlE.pendiente{border-color:#d1a400;color:#7a6100;background:#fff8e0}
+.pedlE.necesita{border-color:#c76b4a;color:#8c3d1e;background:#fdeee7}
+.pedlT{font-size:12px;color:var(--mut);font-weight:300;line-height:1.45;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pedlR{font-size:11.5px;color:var(--ink);font-weight:400;margin-top:4px;line-height:1.45}
 @media(max-width:700px){.pedirbtn{padding:9px 13px;font-size:8.5px;bottom:10px;left:10px}}
 @media(max-width:700px){.tswitch{transform:scale(.78);transform-origin:100% 100%;opacity:.75}}
 </style>
@@ -674,6 +688,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
       <button class="btn ghost" id="pedirCancelar">Cerrar</button>
     </div>
     <div class="pedirmsg" id="pedirMsg"></div>
+    <div class="pedirlista" id="pedirLista"></div>
   </div>
 </div>
 <script>
@@ -707,6 +722,26 @@ if(q&&'abc'.includes(q)) setTheme(q);
       else { ck.style.display='block'; }
     }catch(e){ ck.style.display='block'; }
     setTimeout(function(){ (ck.style.display==='block'?ck:txt).focus(); },60);
+    cargarPeticiones();
+  }
+  function esc(s){ return String(s||'').replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  async function cargarPeticiones(){
+    var lista=document.getElementById('pedirLista');
+    if(!lista) return;
+    try{
+      var r=await fetch(RTDB+'/dimensionlucy/peticiones.json');
+      var d=await r.json() || {};
+      var arr=Object.keys(d).map(function(k){ var o=d[k]||{}; o.ts=+k; return o; })
+        .sort(function(a,b){ return b.ts-a.ts; }).slice(0,4);
+      if(!arr.length){ lista.innerHTML=''; return; }
+      var et={pendiente:'En proceso', aplicado:'Aplicado', necesita:'Falta un dato'};
+      lista.innerHTML='<div class="pedlTit">Tus últimas peticiones</div>'+arr.map(function(p){
+        var e=p.estado||'pendiente';
+        return '<div class="pedl"><span class="pedlE '+e+'">'+(et[e]||e)+'</span>'+
+          '<div><div class="pedlT">'+esc(p.texto)+'</div>'+
+          (p.respuesta?'<div class="pedlR">'+esc(p.respuesta)+'</div>':'')+'</div></div>';
+      }).join('');
+    }catch(e){}
   }
   function cerrar(){ box.classList.remove('abierto'); }
   btn.onclick=abrir;
@@ -728,9 +763,9 @@ if(q&&'abc'.includes(q)) setTheme(q);
       });
       if(!r.ok) throw new Error('http '+r.status);
       msg.style.display='block';
-      msg.innerHTML='<b>Enviado.</b> Te contesto en el día.';
+      msg.innerHTML='<b>Recibido.</b> Se está aplicando automáticamente. Suele tardar entre 5 y 15 minutos: <b>hay que esperar</b>, no hace falta que lo vuelvas a enviar. Aquí abajo verás cuando esté <b>aplicado</b>.';
       txt.value='';
-      setTimeout(cerrar,1800);
+      setTimeout(cargarPeticiones, 800);
     }catch(err){
       msg.style.display='block';
       msg.innerHTML='No se pudo enviar. Prueba otra vez, o escríbele a Pamela por Instagram.';

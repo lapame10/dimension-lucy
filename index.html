@@ -255,6 +255,12 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
   padding:13px;font-family:var(--sans);font-size:14.5px;color:var(--fg);outline:none;resize:vertical;
   font-weight:300;border-radius:0}
 .pedirbox textarea:focus{border-color:var(--fg)}
+.pedirfoto{display:inline-flex;align-items:center;gap:8px;border:1px dashed var(--line);
+  padding:10px 14px;font-size:11.5px;color:var(--mut);cursor:pointer;margin-bottom:10px;
+  font-weight:400;font-family:var(--sans);letter-spacing:.02em}
+.pedirfoto:hover{border-color:var(--ink);color:var(--fg)}
+.pedirfoto input{display:none}
+.pedirprev img{max-height:96px;max-width:100%;border:1px solid var(--line);margin-bottom:10px;display:block}
 .pedirbox .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
 .pedirbox .row .btn{flex:1;min-width:130px}
 .pedircerrar{position:absolute;top:10px;right:12px;background:none;border:none;cursor:pointer;
@@ -676,7 +682,10 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
     <button class="pedircerrar" id="pedirX" aria-label="cerrar">×</button>
     <h3>Pedir un cambio</h3>
     <p>Escríbeme lo que quieras cambiar <b>o preguntar</b> sobre la página. Te contesto yo mismo aquí abajo y, si es un cambio, lo aplico. Suele tardar unos minutos — no hace falta que lo repitas.</p>
-    <textarea id="pedirTxt" placeholder="Ej.: añade un evento, cambia un precio, cambia una foto…"></textarea>
+    <label class="pedirfoto"><input type="file" id="pedirFoto" accept="image/*">
+      <span id="pedirFotoTxt">📷 Adjuntar una foto</span></label>
+    <div class="pedirprev" id="pedirPrev"></div>
+    <textarea id="pedirTxt" placeholder="Ej.: cambia esta foto por la nueva, o añade un evento…"></textarea>
     <div class="row">
       <button class="btn" id="pedirEnviar">Enviar</button>
       <button class="btn ghost" id="pedirCancelar">Cerrar</button>
@@ -721,6 +730,38 @@ if(q&&'abc'.includes(q)) setTheme(q);
       if(m){ localStorage.setItem(LLAVE, m[1]); history.replaceState(null, '', location.pathname); }
     }catch(e){}
   })();
+  var foto='';
+  (function selector(){
+    var inp=document.getElementById('pedirFoto'), prev=document.getElementById('pedirPrev'),
+        etq=document.getElementById('pedirFotoTxt');
+    if(!inp) return;
+    inp.addEventListener('change', function(){
+      var f=inp.files && inp.files[0]; if(!f) return;
+      var fr=new FileReader();
+      fr.onload=function(){
+        var im=new Image();
+        im.onload=function(){
+          var max=1400, w=im.width, h=im.height;
+          if(Math.max(w,h)>max){ var r=max/Math.max(w,h); w=Math.round(w*r); h=Math.round(h*r); }
+          var c=document.createElement('canvas'); c.width=w; c.height=h;
+          c.getContext('2d').drawImage(im,0,0,w,h);
+          foto=c.toDataURL('image/jpeg',0.78);
+          prev.innerHTML='<img src="'+foto+'" alt="vista previa de la foto">';
+          etq.textContent='📷 Foto lista · toca para cambiarla';
+        };
+        im.src=fr.result;
+      };
+      fr.readAsDataURL(f);
+    });
+  })();
+  function limpiarFoto(){
+    foto='';
+    var prev=document.getElementById('pedirPrev'), inp=document.getElementById('pedirFoto');
+    if(prev) prev.innerHTML='';
+    if(inp) inp.value='';
+    var etq=document.getElementById('pedirFotoTxt');
+    if(etq) etq.textContent='📷 Adjuntar una foto';
+  }
   function esc(s){ return String(s||'').replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   async function cargarPeticiones(){
     var lista=document.getElementById('pedirLista');
@@ -762,21 +803,16 @@ if(q&&'abc'.includes(q)) setTheme(q);
     env.disabled=true; env.textContent='Enviando…';
     var ts=Date.now();
     var clave=token();
-    if(!clave){
-      env.disabled=false; env.textContent='Enviar';
-      msg.style.display='block';
-      msg.innerHTML='Abre el <b>enlace privado</b> que te dio Pamela. Sin él no puedo saber que eres tú.';
-      return;
-    }
     try{
       var r=await fetch(RTDB+'/dimensionlucy/peticiones/'+ts+'.json',{
         method:'PUT', headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({de:'lu', ts:ts, texto:t, clave:clave, pagina:'index', estetica:document.body.className})
+        body:JSON.stringify({de:'lu', ts:ts, texto:t, clave:clave, img:foto||'', pagina:'index', estetica:document.body.className})
       });
       if(!r.ok) throw new Error('http '+r.status);
       msg.style.display='block';
-      msg.innerHTML='<b>Recibido.</b> Se está aplicando automáticamente. Suele tardar entre 5 y 15 minutos: <b>hay que esperar</b>, no hace falta que lo vuelvas a enviar. Aquí abajo verás cuando esté <b>aplicado</b>.';
+      msg.innerHTML='<b>Recibido.</b> Lo estoy aplicando. Suele tardar unos minutos: hay que esperar, no hace falta que lo vuelvas a enviar. Aquí abajo verás cuando esté <b>aplicado</b>.';
       txt.value='';
+      limpiarFoto();
       setTimeout(cargarPeticiones, 800);
     }catch(err){
       msg.style.display='block';

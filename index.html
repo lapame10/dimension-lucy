@@ -74,6 +74,17 @@ body.t-a .hero .logo{content:url(assets/logo-light.png?v=3)}
 .hero .lead{margin:0 auto;text-align:center}
 .herobtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
 
+/* ===== categorías ===== */
+.cats{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:760px;margin:26px auto 0}
+@media(min-width:700px){.cats{grid-template-columns:repeat(4,1fr)}}
+.cat{display:flex;flex-direction:column;gap:3px;border:1px solid var(--line);
+  padding:16px 14px;text-align:left;background:var(--card);transition:border-color .25s,background .25s}
+.cat:hover{border-color:var(--fg);background:var(--soft)}
+.cat b{font-family:var(--disp);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--fg);font-weight:500}
+.cat span{font-family:var(--disp);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--mut)}
+
 /* cinta de fotos */
 .band{display:grid;grid-template-columns:1.35fr 1fr;gap:0;height:clamp(240px,40vw,520px)}
 @media(max-width:700px){.band{grid-template-columns:1fr;height:clamp(300px,60vw,420px)}
@@ -244,6 +255,10 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
   padding:13px;font-family:var(--sans);font-size:14.5px;color:var(--fg);outline:none;resize:vertical;
   font-weight:300;border-radius:0}
 .pedirbox textarea:focus{border-color:var(--fg)}
+.pedirbox .pedirclave{width:100%;background:var(--card);border:1px solid var(--line);padding:11px 13px;
+  font-family:var(--sans);font-size:13.5px;color:var(--fg);outline:none;margin-bottom:10px;
+  font-weight:300;border-radius:0}
+.pedirbox .pedirclave:focus{border-color:var(--fg)}
 .pedirbox .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
 .pedirbox .row .btn{flex:1;min-width:130px}
 .pedircerrar{position:absolute;top:10px;right:12px;background:none;border:none;cursor:pointer;
@@ -276,10 +291,14 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
       <img class="logo" src="assets/logo.png?v=3" alt="Dimensión Lucy">
       <div class="tag">Aerial experiences, creative storytelling &amp; presence</div>
       <h1>Volar · Crear · Habitar</h1>
-      <p class="lead">Coaching de paracaidismo, viajes de parapente, Trapeze Flow y producción audiovisual. Experiencias para habitar el cuerpo y el presente — desde el aire.</p>
+      <nav class="cats" aria-label="Categorías de Dimensión Lucy">
+        <a class="cat" href="brands.html"><b>Brands</b><span>&amp; Collaborations</span></a>
+        <a class="cat" href="vertical.html"><b>Vertical</b><span>Playground</span></a>
+        <a class="cat" href="skydive.html"><b>Skydive</b><span>Coaching</span></a>
+        <a class="cat" href="trapeze.html"><b>Trapeze</b><span>Flow</span></a>
+      </nav>
       <div class="herobtns">
-        <a class="btn" href="#calendario">Ver experiencias</a>
-        <a class="btn ghost" href="#reservas">Solicitar coaching</a>
+        <a class="btn ghost" href="#calendario">Ver el calendario</a>
       </div>
     </div>
   </header>
@@ -647,7 +666,9 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
     <button class="pedircerrar" id="pedirX" aria-label="cerrar">×</button>
     <h3>Pedir un cambio</h3>
     <p>Escribe lo que quieres cambiar de la página: un texto, un precio, una foto, un evento. Llega directo a Pamela y te contesta en el día. <b>No es un chat en vivo.</b></p>
-    <textarea id="pedirTxt" placeholder="Ej.: añade un evento, cambia un precio, cambia una foto, quita una sección…"></textarea>
+    <input class="pedirclave" id="pedirClave" type="password" autocomplete="off"
+           placeholder="Clave de acceso" aria-label="Clave de acceso" style="display:none">
+    <textarea id="pedirTxt" placeholder="Ej.: añade un evento, cambia un precio, cambia una foto…"></textarea>
     <div class="row">
       <button class="btn" id="pedirEnviar">Enviar</button>
       <button class="btn ghost" id="pedirCancelar">Cerrar</button>
@@ -677,7 +698,16 @@ if(q&&'abc'.includes(q)) setTheme(q);
   var btn=document.getElementById('pedirBtn'), box=document.getElementById('pedir'),
       txt=document.getElementById('pedirTxt'), msg=document.getElementById('pedirMsg'),
       env=document.getElementById('pedirEnviar');
-  function abrir(){ box.classList.add('abierto'); setTimeout(function(){txt.focus();},60); }
+  function abrir(){
+    box.classList.add('abierto');
+    var ck=document.getElementById('pedirClave');
+    try{
+      var guardada=localStorage.getItem('lu_clave');
+      if(guardada){ ck.value=guardada; ck.style.display='none'; }
+      else { ck.style.display='block'; }
+    }catch(e){ ck.style.display='block'; }
+    setTimeout(function(){ (ck.style.display==='block'?ck:txt).focus(); },60);
+  }
   function cerrar(){ box.classList.remove('abierto'); }
   btn.onclick=abrir;
   document.getElementById('pedirX').onclick=cerrar;
@@ -688,10 +718,13 @@ if(q&&'abc'.includes(q)) setTheme(q);
     if(t.length<4){ msg.style.display='block'; msg.textContent='Escribe un poco más para que se entienda.'; return; }
     env.disabled=true; env.textContent='Enviando…';
     var ts=Date.now();
+    var ck=document.getElementById('pedirClave');
+    var clave=(ck && ck.value || '').trim();
+    try{ if(clave) localStorage.setItem('lu_clave', clave); }catch(e){}
     try{
       var r=await fetch(RTDB+'/dimensionlucy/peticiones/'+ts+'.json',{
         method:'PUT', headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({de:'lu', ts:ts, texto:t, pagina:'index', estetica:document.body.className})
+        body:JSON.stringify({de:'lu', ts:ts, texto:t, clave:clave, pagina:'index', estetica:document.body.className})
       });
       if(!r.ok) throw new Error('http '+r.status);
       msg.style.display='block';

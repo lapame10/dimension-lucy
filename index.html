@@ -499,15 +499,6 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
       </div>
       <div class="events">
         <article class="ev">
-          <div class="evdate">Nov<br>2026</div>
-          <div class="evinfo">
-            <h3>Proyecto INHOPP · Colombia</h3>
-            <div class="evmeta"><span>Colombia</span><span>Noviembre 2026</span><span>Plazas limitadas</span></div>
-            <p style="font-size:13px;margin-top:10px;max-width:62ch;font-weight:300">Experiencia y proyecto audiovisual en Colombia. Inscripción y pago en línea.</p>
-          </div>
-          <div class="evcta"><span class="plazas">Reserva en línea</span><a class="btn sm" href="https://buy.stripe.com/eVq6oJ4Z9e8y5RR21Ggbm0g" target="_blank" rel="noopener">Reservar</a></div>
-        </article>
-        <article class="ev">
           <div class="evdate">Por<br>confirmar</div>
           <div class="evinfo">
             <h3>Trapeze Flow Workshop</h3>
@@ -776,7 +767,14 @@ if(q&&'abc'.includes(q)) setTheme(q);
     var ts=Date.now();
     var ck=document.getElementById('pedirClave');
     var clave=(ck && ck.value || '').trim();
-    try{ if(clave) localStorage.setItem('lu_clave', clave); }catch(e){}
+    if(!clave){
+      env.disabled=false; env.textContent='Enviar';
+      msg.style.display='block';
+      msg.innerHTML='Falta la <b>clave de acceso</b>. Te la dio Pamela una vez; sin ella no puedo saber que eres tú, y el mensaje se perdería.';
+      ck.style.display='block'; ck.focus();
+      return;
+    }
+    try{ localStorage.setItem('lu_clave', clave); }catch(e){}
     try{
       var r=await fetch(RTDB+'/dimensionlucy/peticiones/'+ts+'.json',{
         method:'PUT', headers:{'Content-Type':'application/json'},

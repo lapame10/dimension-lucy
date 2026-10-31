@@ -728,6 +728,7 @@ if(q&&'abc'.includes(q)) setTheme(q);
   async function cargarPeticiones(){
     var lista=document.getElementById('pedirLista');
     if(!lista) return;
+    try{ if(!localStorage.getItem('lu_clave')){ lista.innerHTML=''; return; } }catch(e){ return; }
     try{
       var r=await fetch(RTDB+'/dimensionlucy/peticiones.json');
       var d=await r.json() || {};

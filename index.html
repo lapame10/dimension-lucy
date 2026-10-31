@@ -279,6 +279,15 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
 .pedlT{font-size:12px;color:var(--mut);font-weight:300;line-height:1.45;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .pedlR{font-size:11.5px;color:var(--ink);font-weight:400;margin-top:4px;line-height:1.45}
+.pedirlista{max-height:240px;overflow-y:auto}
+.msg{margin-bottom:10px}
+.msg b{display:block;font-family:var(--disp);font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--mut);margin-bottom:3px;font-weight:500}
+.msg p{font-size:12.5px;line-height:1.5;font-weight:300;padding:9px 11px;border:1px solid var(--line)}
+.msg.lu p{background:var(--soft);color:var(--mut)}
+.msg.yo p{background:#eef8e2;border-color:#cde3b4;color:var(--fg)}
+.msg.vacio p{background:var(--card);color:var(--mut);font-style:italic}
+.msg .pedlE{margin-top:5px;display:inline-block}
 @media(max-width:700px){.pedirbtn{padding:9px 13px;font-size:8.5px;bottom:10px;left:10px}}
 @media(max-width:700px){.tswitch{transform:scale(.78);transform-origin:100% 100%;opacity:.75}}
 </style>
@@ -679,7 +688,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
   <div class="pedirbox">
     <button class="pedircerrar" id="pedirX" aria-label="cerrar">×</button>
     <h3>Pedir un cambio</h3>
-    <p>Escribe lo que quieres cambiar de la página: un texto, un precio, una foto, un evento. <b>Se aplica automáticamente</b>, suele tardar entre 5 y 15 minutos. Aquí abajo verás <b>«Aplicado»</b> cuando esté listo — no hace falta que lo vuelvas a mandar.</p>
+    <p>Escríbeme lo que quieras cambiar <b>o preguntar</b> sobre la página. Te contesto yo mismo aquí abajo y, si es un cambio, lo aplico. Suele tardar unos minutos — no hace falta que lo repitas.</p>
     <input class="pedirclave" id="pedirClave" type="password" autocomplete="off"
            placeholder="Clave de acceso" aria-label="Clave de acceso" style="display:none">
     <textarea id="pedirTxt" placeholder="Ej.: añade un evento, cambia un precio, cambia una foto…"></textarea>
@@ -723,6 +732,7 @@ if(q&&'abc'.includes(q)) setTheme(q);
     }catch(e){ ck.style.display='block'; }
     setTimeout(function(){ (ck.style.display==='block'?ck:txt).focus(); },60);
     cargarPeticiones();
+    empezarReloj();
   }
   function esc(s){ return String(s||'').replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   async function cargarPeticiones(){
@@ -733,18 +743,28 @@ if(q&&'abc'.includes(q)) setTheme(q);
       var r=await fetch(RTDB+'/dimensionlucy/peticiones.json');
       var d=await r.json() || {};
       var arr=Object.keys(d).map(function(k){ var o=d[k]||{}; o.ts=+k; return o; })
-        .sort(function(a,b){ return b.ts-a.ts; }).slice(0,4);
+        .filter(function(o){ return (o.texto||'').trim(); })
+        .sort(function(a,b){ return a.ts-b.ts; }).slice(-4);
       if(!arr.length){ lista.innerHTML=''; return; }
       var et={pendiente:'En proceso', aplicado:'Aplicado', necesita:'Falta un dato'};
-      lista.innerHTML='<div class="pedlTit">Tus últimas peticiones</div>'+arr.map(function(p){
+      lista.innerHTML='<div class="pedlTit">Conversación</div>'+arr.map(function(p){
         var e=p.estado||'pendiente';
-        return '<div class="pedl"><span class="pedlE '+e+'">'+(et[e]||e)+'</span>'+
-          '<div><div class="pedlT">'+esc(p.texto)+'</div>'+
-          (p.respuesta?'<div class="pedlR">'+esc(p.respuesta)+'</div>':'')+'</div></div>';
+        var h='<div class="msg lu"><b>Lu</b><p>'+esc(p.texto)+'</p></div>';
+        if(p.respuesta){
+          h+='<div class="msg yo"><b>Asistente</b><p>'+esc(p.respuesta)+'</p>'+
+             '<span class="pedlE '+e+'">'+(et[e]||e)+'</span></div>';
+        } else if(e==='pendiente'){
+          h+='<div class="msg yo vacio"><b>Asistente</b><p>Leyendo… te contesto en unos minutos.</p></div>';
+        }
+        return h;
       }).join('');
+      lista.scrollTop = lista.scrollHeight;
     }catch(e){}
   }
-  function cerrar(){ box.classList.remove('abierto'); }
+  var reloj=null;
+  function empezarReloj(){ if(reloj) return; reloj=setInterval(cargarPeticiones, 20000); }
+  function pararReloj(){ if(reloj){ clearInterval(reloj); reloj=null; } }
+  function cerrar(){ box.classList.remove('abierto'); pararReloj(); }
   btn.onclick=abrir;
   document.getElementById('pedirX').onclick=cerrar;
   document.getElementById('pedirCancelar').onclick=cerrar;

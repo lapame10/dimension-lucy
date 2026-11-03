@@ -255,10 +255,12 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
   padding:13px;font-family:var(--sans);font-size:14.5px;color:var(--fg);outline:none;resize:vertical;
   font-weight:300;border-radius:0}
 .pedirbox textarea:focus{border-color:var(--fg)}
-.pedirbox .pedirclave{width:100%;background:var(--card);border:1px solid var(--line);padding:11px 13px;
-  font-family:var(--sans);font-size:13.5px;color:var(--fg);outline:none;margin-bottom:10px;
-  font-weight:300;border-radius:0}
-.pedirbox .pedirclave:focus{border-color:var(--fg)}
+.pedirfoto{display:inline-flex;align-items:center;gap:8px;border:1px dashed var(--line);
+  padding:10px 14px;font-size:11.5px;color:var(--mut);cursor:pointer;margin-bottom:10px;
+  font-weight:400;font-family:var(--sans);letter-spacing:.02em}
+.pedirfoto:hover{border-color:var(--ink);color:var(--fg)}
+.pedirfoto input{display:none}
+.pedirprev img{max-height:96px;max-width:100%;border:1px solid var(--line);margin-bottom:10px;display:block}
 .pedirbox .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
 .pedirbox .row .btn{flex:1;min-width:130px}
 .pedircerrar{position:absolute;top:10px;right:12px;background:none;border:none;cursor:pointer;
@@ -313,7 +315,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
     <div class="heroin">
       <img class="logo" src="assets/logo.png?v=3" alt="Dimensión Lucy">
       <div class="tag">Aerial experiences, creative storytelling &amp; presence</div>
-      <h1>Volar · Crear · Habitar</h1>
+      <h1>Crear · Planear · Habitar</h1>
       <nav class="cats" aria-label="Categorías de Dimensión Lucy">
         <a class="cat" href="brands.html"><b>Brands</b><span>&amp; Collaborations</span></a>
         <a class="cat" href="vertical.html"><b>Vertical</b><span>Playground</span></a>
@@ -680,9 +682,10 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
     <button class="pedircerrar" id="pedirX" aria-label="cerrar">×</button>
     <h3>Pedir un cambio</h3>
     <p>Escríbeme lo que quieras cambiar <b>o preguntar</b> sobre la página. Te contesto yo mismo aquí abajo y, si es un cambio, lo aplico. Suele tardar unos minutos — no hace falta que lo repitas.</p>
-    <input class="pedirclave" id="pedirClave" type="password" autocomplete="off"
-           placeholder="Clave de acceso" aria-label="Clave de acceso" style="display:none">
-    <textarea id="pedirTxt" placeholder="Ej.: añade un evento, cambia un precio, cambia una foto…"></textarea>
+    <label class="pedirfoto"><input type="file" id="pedirFoto" accept="image/*">
+      <span id="pedirFotoTxt">📷 Adjuntar una foto</span></label>
+    <div class="pedirprev" id="pedirPrev"></div>
+    <textarea id="pedirTxt" placeholder="Ej.: cambia esta foto por la nueva, o añade un evento…"></textarea>
     <div class="row">
       <button class="btn" id="pedirEnviar">Enviar</button>
       <button class="btn ghost" id="pedirCancelar">Cerrar</button>
@@ -715,15 +718,49 @@ if(q&&'abc'.includes(q)) setTheme(q);
       env=document.getElementById('pedirEnviar');
   function abrir(){
     box.classList.add('abierto');
-    var ck=document.getElementById('pedirClave');
-    try{
-      var guardada=localStorage.getItem('lu_clave');
-      if(guardada){ ck.value=guardada; ck.style.display='none'; }
-      else { ck.style.display='block'; }
-    }catch(e){ ck.style.display='block'; }
-    setTimeout(function(){ (ck.style.display==='block'?ck:txt).focus(); },60);
+    setTimeout(function(){ txt.focus(); },60);
     cargarPeticiones();
     empezarReloj();
+  }
+  var LLAVE='lu_clave';
+  function token(){ try{ return localStorage.getItem(LLAVE)||''; }catch(e){ return ''; } }
+  (function arranque(){
+    try{
+      var m=location.search.match(/[?&]c=([A-Za-z0-9\-]+)/);
+      if(m){ localStorage.setItem(LLAVE, m[1]); history.replaceState(null, '', location.pathname); }
+    }catch(e){}
+  })();
+  var foto='';
+  (function selector(){
+    var inp=document.getElementById('pedirFoto'), prev=document.getElementById('pedirPrev'),
+        etq=document.getElementById('pedirFotoTxt');
+    if(!inp) return;
+    inp.addEventListener('change', function(){
+      var f=inp.files && inp.files[0]; if(!f) return;
+      var fr=new FileReader();
+      fr.onload=function(){
+        var im=new Image();
+        im.onload=function(){
+          var max=1400, w=im.width, h=im.height;
+          if(Math.max(w,h)>max){ var r=max/Math.max(w,h); w=Math.round(w*r); h=Math.round(h*r); }
+          var c=document.createElement('canvas'); c.width=w; c.height=h;
+          c.getContext('2d').drawImage(im,0,0,w,h);
+          foto=c.toDataURL('image/jpeg',0.78);
+          prev.innerHTML='<img src="'+foto+'" alt="vista previa de la foto">';
+          etq.textContent='📷 Foto lista · toca para cambiarla';
+        };
+        im.src=fr.result;
+      };
+      fr.readAsDataURL(f);
+    });
+  })();
+  function limpiarFoto(){
+    foto='';
+    var prev=document.getElementById('pedirPrev'), inp=document.getElementById('pedirFoto');
+    if(prev) prev.innerHTML='';
+    if(inp) inp.value='';
+    var etq=document.getElementById('pedirFotoTxt');
+    if(etq) etq.textContent='📷 Adjuntar una foto';
   }
   function esc(s){ return String(s||'').replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   async function cargarPeticiones(){
@@ -765,18 +802,17 @@ if(q&&'abc'.includes(q)) setTheme(q);
     if(t.length<4){ msg.style.display='block'; msg.textContent='Escribe un poco más para que se entienda.'; return; }
     env.disabled=true; env.textContent='Enviando…';
     var ts=Date.now();
-    var ck=document.getElementById('pedirClave');
-    var clave=(ck && ck.value || '').trim();
-    try{ if(clave) localStorage.setItem('lu_clave', clave); }catch(e){}
+    var clave=token();
     try{
       var r=await fetch(RTDB+'/dimensionlucy/peticiones/'+ts+'.json',{
         method:'PUT', headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({de:'lu', ts:ts, texto:t, clave:clave, pagina:'index', estetica:document.body.className})
+        body:JSON.stringify({de:'lu', ts:ts, texto:t, clave:clave, img:foto||'', pagina:'index', estetica:document.body.className})
       });
       if(!r.ok) throw new Error('http '+r.status);
       msg.style.display='block';
-      msg.innerHTML='<b>Recibido.</b> Se está aplicando automáticamente. Suele tardar entre 5 y 15 minutos: <b>hay que esperar</b>, no hace falta que lo vuelvas a enviar. Aquí abajo verás cuando esté <b>aplicado</b>.';
+      msg.innerHTML='<b>Recibido.</b> Lo estoy aplicando. Suele tardar unos minutos: hay que esperar, no hace falta que lo vuelvas a enviar. Aquí abajo verás cuando esté <b>aplicado</b>.';
       txt.value='';
+      limpiarFoto();
       setTimeout(cargarPeticiones, 800);
     }catch(err){
       msg.style.display='block';
@@ -786,6 +822,29 @@ if(q&&'abc'.includes(q)) setTheme(q);
   };
 })();
 </script>
-<script>document.addEventListener("DOMContentLoaded",function(){try{localStorage.setItem("lu_clave","LUNA-2026");}catch(e){}document.getElementById("pedirBtn").click();});</script>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  document.getElementById("pedirBtn").click();
+  var c=document.createElement("canvas"); c.width=2000; c.height=1500;
+  var x=c.getContext("2d");
+  for(var i=0;i<60;i++){ x.fillStyle="hsl("+(i*6)+",70%,55%)"; x.fillRect(Math.random()*2000,Math.random()*1500,220,220); }
+  c.toBlob(function(b){
+    var f=new File([b],"prueba.png",{type:"image/png"});
+    var dt=new DataTransfer(); dt.items.add(f);
+    var inp=document.getElementById("pedirFoto");
+    inp.files=dt.files;
+    inp.dispatchEvent(new Event("change"));
+    setTimeout(function(){
+      var img=document.querySelector("#pedirPrev img");
+      var etq=document.getElementById("pedirFotoTxt").textContent;
+      var largo=img?img.src.length:0;
+      var kb=img?Math.round(img.src.length*0.75/1024):0;
+      var esJpeg=img?img.src.indexOf("data:image/jpeg")===0:false;
+      document.title="prev="+(img?"SI":"NO")+"|jpeg="+esJpeg+"|origKB="+Math.round(b.size/1024)+"|saleKB="+kb+"|etq="+etq;
+    },1500);
+  },"image/png");
+});
+</script>
+
 </body>
 </html>

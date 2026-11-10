@@ -16,6 +16,7 @@
   --mono:'SF Mono',ui-monospace,Menlo,monospace;
 }
 html{scroll-behavior:smooth}
+#experiencias,#sobre,#servicios,#proyectos,#calendario,#trapeze,#reservas,#galeria,#pagos,#contacto{scroll-margin-top:96px}
 body{background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.68;
   -webkit-font-smoothing:antialiased;transition:background .35s,color .35s;letter-spacing:.005em}
 img{display:block;max-width:100%}
@@ -45,13 +46,17 @@ body.t-c{--bg:#f7f3ec;--fg:#11120d;--mut:#8d8378;--ink:#655546;--line:#e2d9cc;--
 .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);
   background:color-mix(in srgb,var(--bg) 90%,transparent);border-bottom:1px solid var(--line)}
 .navin{max-width:var(--max);margin:0 auto;padding:14px var(--pad);display:flex;
-  align-items:center;justify-content:space-between;gap:18px}
+  align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
 .brand img{height:38px;width:auto}
 body.t-a .brand img{content:url(assets/logo-light.png?v=3)}
-.navlinks{display:none;gap:26px;font-family:var(--disp);font-size:10.5px;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--mut)}
+.navlinks{display:flex;order:3;width:100%;gap:18px;overflow-x:auto;white-space:nowrap;
+  padding-top:12px;border-top:1px solid var(--line);font-family:var(--disp);font-size:10px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--mut);scrollbar-width:none}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{flex:0 0 auto}
 .navlinks a:hover{color:var(--fg)}
-@media(min-width:1020px){.navlinks{display:flex}}
+@media(min-width:1020px){.navlinks{order:0;width:auto;overflow:visible;padding-top:0;border-top:none;
+  font-size:10.5px;gap:24px}}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:0;
   padding:13px 26px;font-family:var(--disp);font-size:10.5px;font-weight:500;letter-spacing:.24em;
   text-transform:uppercase;border:1px solid var(--fg);background:var(--fg);color:var(--bg);
@@ -302,8 +307,9 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
   <div class="navin">
     <a class="brand" href="#top"><img src="assets/logo.png?v=3" alt="Dimensión Lucy"></a>
     <div class="navlinks">
-      <a href="#sobre">Sobre mí</a><a href="#servicios">Servicios</a>
-      <a href="#proyectos">Proyectos</a><a href="#calendario">Calendario</a><a href="#pagos">Pagos</a>
+      <a href="#experiencias">Experiencias</a><a href="sponsorship.html">Sponsorship</a>
+      <a href="shows.html">Shows aéreos</a><a href="redes.html">Gestión de redes</a>
+      <a href="newsletter.html">Newsletter</a>
     </div>
     <a class="btn sm ghost" href="#trapeze">Inscripción</a>
   </div>
@@ -366,9 +372,10 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
   <hr class="sep">
 
   <section id="servicios">
+    <span id="experiencias"></span>
     <div class="wrap">
       <div class="shead">
-        <div class="eyebrow">02 — Servicios</div>
+        <div class="eyebrow">02 — Experiencias</div>
         <h2>Cuatro líneas de trabajo</h2>
         <p class="lead">Sesiones individuales, paquetes personalizados y servicios mensuales. Los proyectos a medida se cotizan después de hablar de objetivos, fechas y logística.</p>
       </div>
@@ -666,7 +673,9 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
   <div class="wrap footin">
     <span>© Dimensión Lucy — Luciana Burkle</span>
     <span>Alpes franceses · México</span>
-    <span><a href="#top">Volver arriba</a></span>
+    <span class="footlinks"><a href="#sobre">Sobre mí</a> · <a href="#proyectos">Proyectos</a> ·
+      <a href="#calendario">Calendario</a> · <a href="#pagos">Pagos</a> ·
+      <a href="#contacto">Contacto</a> · <a href="#top">Arriba</a></span>
   </div>
 </footer>
 

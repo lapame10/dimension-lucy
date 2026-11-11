@@ -49,14 +49,17 @@ body.t-c{--bg:#f7f3ec;--fg:#11120d;--mut:#8d8378;--ink:#655546;--line:#e2d9cc;--
   align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
 .brand img{height:38px;width:auto}
 body.t-a .brand img{content:url(assets/logo-light.png?v=3)}
-.navlinks{display:flex;order:3;width:100%;gap:18px;overflow-x:auto;white-space:nowrap;
-  padding-top:12px;border-top:1px solid var(--line);font-family:var(--disp);font-size:10px;
-  letter-spacing:.22em;text-transform:uppercase;color:var(--mut);scrollbar-width:none}
-.navlinks::-webkit-scrollbar{display:none}
-.navlinks a{flex:0 0 auto}
+.navlinks{display:flex;flex-direction:column;order:3;width:100%;gap:9px;padding-top:12px;
+  border-top:1px solid var(--line);font-family:var(--disp);font-size:9.5px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.navrow{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px}
+.navrow a{flex:0 0 auto}
 .navlinks a:hover{color:var(--fg)}
-@media(min-width:1020px){.navlinks{order:0;width:auto;overflow:visible;padding-top:0;border-top:none;
-  font-size:10.5px;gap:24px}}
+@media(max-width:359px){.navlinks{font-size:8.5px;letter-spacing:.12em}
+  .navrow{gap:6px 10px}}
+@media(min-width:1020px){.navlinks{order:0;width:auto;flex-direction:row;gap:24px;padding-top:0;
+  border-top:none;font-size:10.5px;letter-spacing:.22em}
+  .navrow{flex-wrap:nowrap;gap:24px}}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:0;
   padding:13px 26px;font-family:var(--disp);font-size:10.5px;font-weight:500;letter-spacing:.24em;
   text-transform:uppercase;border:1px solid var(--fg);background:var(--fg);color:var(--bg);
@@ -307,9 +310,15 @@ footer{border-top:1px solid var(--line);padding:34px 0 40px;font-size:11px;color
   <div class="navin">
     <a class="brand" href="#top"><img src="assets/logo.png?v=3" alt="Dimensión Lucy"></a>
     <div class="navlinks">
-      <a href="#experiencias">Experiencias</a><a href="sponsorship.html">Sponsorship</a>
-      <a href="shows.html">Shows aéreos</a><a href="redes.html">Gestión de redes</a>
-      <a href="newsletter.html">Newsletter</a>
+      <span class="navrow">
+        <a href="#experiencias">Experiencias</a>
+        <a href="sponsorship.html">Sponsorship</a>
+        <a href="shows.html">Shows aéreos</a>
+      </span>
+      <span class="navrow">
+        <a href="redes.html">Gestión de redes</a>
+        <a href="newsletter.html">Newsletter</a>
+      </span>
     </div>
     <a class="btn sm ghost" href="#trapeze">Inscripción</a>
   </div>

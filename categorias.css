@@ -31,14 +31,17 @@ section.wrap{padding:clamp(30px,5vw,56px) var(--pad)}
 .navin{max-width:var(--max);margin:0 auto;padding:16px var(--pad);display:flex;align-items:center;
   justify-content:space-between;gap:16px;flex-wrap:wrap}
 .brand img{height:44px;width:auto}
-.navlinks{display:flex;order:3;width:100%;gap:16px;overflow-x:auto;white-space:nowrap;
+.navlinks{display:flex;flex-direction:column;order:3;width:100%;gap:9px;
   padding-top:12px;border-top:1px solid var(--line);font-family:var(--disp);font-size:9.5px;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--mut);scrollbar-width:none}
-.navlinks::-webkit-scrollbar{display:none}
-.navlinks a{flex:0 0 auto}
+  letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.navrow{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px}
+.navrow a{flex:0 0 auto}
 .navlinks a:hover,.navlinks a.on{color:var(--fg)}
-@media(min-width:980px){.navlinks{order:0;width:auto;overflow:visible;padding-top:0;border-top:none;
-  font-size:10px;gap:22px}}
+@media(max-width:359px){.navlinks{font-size:8.5px;letter-spacing:.12em}
+  .navrow{gap:6px 10px}}
+@media(min-width:980px){.navlinks{order:0;width:auto;flex-direction:row;gap:22px;padding-top:0;
+  border-top:none;font-size:10px;letter-spacing:.2em}
+  .navrow{flex-wrap:nowrap;gap:22px}}
 h2{font-family:var(--disp);font-size:clamp(15px,2vw,20px);letter-spacing:.16em;text-transform:uppercase;
   margin-bottom:18px;font-weight:500}
 h3{font-family:var(--disp);font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
